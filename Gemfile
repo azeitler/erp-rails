@@ -68,6 +68,7 @@ end
 require_relative "lib/jumpstart/lib/jumpstart/yaml_serializer"
 require_relative "lib/jumpstart/lib/jumpstart/configuration"
 eval_gemfile "Gemfile.jumpstart"
+eval_gemfile "Gemfile.custom"
 
 # We recommend using strong migrations when your app is in production
 # gem "strong_migrations"

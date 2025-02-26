@@ -6,6 +6,9 @@ namespace :admin do
   mount MissionControl::Jobs::Engine, at: "/jobs" if defined?(::MissionControl::Jobs::Engine)
   mount Flipper::UI.app(Flipper) => "/flipper" if defined?(::Flipper::UI)
 
+  mount GoodJob::Engine => '/jobs'
+  mount RailsEventStore::Browser => "/events"
+
   resources :announcements
   resources :users do
     resource :impersonate, module: :user
