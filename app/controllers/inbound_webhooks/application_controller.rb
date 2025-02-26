@@ -11,12 +11,18 @@ module InboundWebhooks
     end
 
     def filtered_headers
-      headers = {}
-      request.headers.to_h.each do |key, value|
-        Rails.logger.info("Header: #{key} = #{value}")
-        headers[key] = value
+      # Retrieve and normalize headers
+      headers_to_store = {}
+      request.headers.each do |key, value|
+        if key.start_with?('HTTP_')
+          normalized_key = key.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-')
+          headers_to_store[normalized_key] = value
+        end
       end
-      headers
+
+      # Mask sensitive headers
+      headers_to_store['Authorization'] = headers_to_store['Authorization']&.gsub(/.(?=.{4})/, '*')
+      headers_to_store
     end
   end
 end
