@@ -1,6 +1,14 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   invisible_captcha only: :create
 
+  def new
+    redirect_to root_path, alert: "Registration is disabled."
+  end
+
+  def create
+    redirect_to root_path, alert: "Registration is disabled."
+  end
+
   protected
 
   def build_resource(hash = {})
