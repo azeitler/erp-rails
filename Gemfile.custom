@@ -1,3 +1,4 @@
 gem "rails_event_store", "~> 2.0"
 gem "amazing_print"
 gem "rails_semantic_logger"
+gem "logtail-rails"

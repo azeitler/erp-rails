@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require 'logtail_semantic_logger_appender'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -61,6 +62,18 @@ Rails.application.configure do
   $stdout.sync = true
   config.rails_semantic_logger.add_file_appender = false
   config.semantic_logger.add_appender(io: $stdout, formatter: config.rails_semantic_logger.format)
+
+  # Create a Logtail logger
+  logtail_logger = Logtail::Logger.create_default_logger(
+    Rails.application.credentials.dig(:logtail, :token),
+    ingesting_host: "s1218439.eu-nbg-2.betterstackdata.com"
+  )
+
+  # Add the custom Logtail appender to Semantic Logger
+  SemanticLogger.add_appender(
+    appender: LogtailSemanticLoggerAppender.new(logtail_logger),
+    formatter: :json # Optional: Use JSON formatting for structured logs
+  )
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
