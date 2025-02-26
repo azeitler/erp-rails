@@ -112,6 +112,10 @@ Avo.configure do |config|
       resource :subscription
     end
 
+    section "Integrations", icon: "heroicons/outline/puzzle" do
+      resource :inbound_webhook
+    end
+
     if Rails.env.development?
       link "Jumpstart Config", path: Avo::Current.view_context.main_app.jumpstart_path
     end
