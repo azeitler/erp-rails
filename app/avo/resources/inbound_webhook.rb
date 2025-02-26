@@ -10,7 +10,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
     field :status, as: :select, enum: ::InboundWebhook.statuses
 
     field :body, as: :code, theme: 'dracula', language: 'json' do |model, resource, view|
-      JSON.pretty_generate(model.body)
+      JSON.pretty_generate(resource.body)
     end
 
     field :controller_name, as: :text
@@ -19,7 +19,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
     field :user_agent, as: :text
 
     field :headers, as: :code, theme: 'dracula', language: 'json' do |model, resource, view|
-      JSON.pretty_generate(model.headers)
+      JSON.pretty_generate(resource.headers)
     end
   end
 end
