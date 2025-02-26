@@ -70,7 +70,7 @@ Rails.application.configure do
   )
 
   # Add the custom Logtail appender to Semantic Logger
-  SemanticLogger.add_appender(
+  config.semantic_logger.add_appender(
     appender: LogtailSemanticLoggerAppender.new(logtail_logger),
     formatter: :json # Optional: Use JSON formatting for structured logs
   )
