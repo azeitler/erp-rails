@@ -9,5 +9,13 @@ module InboundWebhooks
     def payload
       @payload ||= request.form_data? ? request.request_parameters.to_json : request.raw_post
     end
+
+    def filtered_headers
+      headers = {}
+      request.headers.each do |key, value|
+        headers[key] = value
+      end
+      headers
+    end
   end
 end
