@@ -12,7 +12,7 @@ module InboundWebhooks
 
     def filtered_headers
       headers = {}
-      request.headers.each do |key, value|
+      request.headers.to_h.each do |key, value|
         Rails.logger.info("Header: #{key} = #{value}")
         headers[key] = value
       end
