@@ -22,8 +22,8 @@ module InboundWebhooks
     private
 
     def verify_event
-      # TODO: Verify the event was sent from the service
-      # Render `head :bad_request` if verification fails
+      # needs to have X-Convoy-Source-Id and X-Convoy-Signature headers
+      head :bad_request unless request.headers['X-Convoy-Source-Id'] && request.headers['X-Convoy-Signature']
     end
   end
 end
