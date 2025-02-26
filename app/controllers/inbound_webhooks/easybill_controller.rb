@@ -4,7 +4,13 @@ module InboundWebhooks
 
     def create
       # Save webhook to database
-      record = InboundWebhook.create(body: payload)
+      record = InboundWebhook.create(body: payload,
+        controller_name: self.class.name,
+        action_name: action_name,
+        ip_address: request.remote_ip,
+        user_agent: request.user_agent,
+        headers: request.headers.to_h
+      )
 
       # Queue webhook for processing
       InboundWebhooks::EasybillJob.perform_later(record)
