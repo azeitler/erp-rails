@@ -8,8 +8,7 @@ module InboundWebhooks
         controller_name: self.class.name,
         action_name: action_name,
         ip_address: request.remote_ip,
-        user_agent: request.user_agent,
-        headers: request.headers.to_h
+        user_agent: request.user_agent
       )
 
       # Queue webhook for processing
