@@ -11,6 +11,13 @@ Rails.application.routes.draw do
     draw :admin
   end
 
+  # Avo admin panel
+  if defined?(Avo::Engine)
+    authenticated :user, lambda { |u| u.admin? } do
+      mount Avo::Engine, at: Avo.configuration.root_path
+    end
+  end
+
   resources :announcements, only: [:index, :show]
 
   namespace :action_text do

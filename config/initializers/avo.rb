@@ -10,7 +10,7 @@ Avo.configure do |config|
 
   ## == Licensing ==
   # Add your license key here for Pro or Advanced licenses
-  # config.license_key = ENV['AVO_LICENSE_KEY']
+  config.license_key = ENV['AVO_LICENSE_KEY']
 
   ## == Set the context ==
   config.set_context do
@@ -55,7 +55,7 @@ Avo.configure do |config|
   # config.cache_resource_filters = ->(current_user:, resource:) { current_user.cache_resource_filters?}
 
   ## == Customization ==
-  # config.app_name = 'Avocadelicious'
+  config.app_name = 'ERP'
   # config.timezone = 'UTC'
   # config.currency = 'USD'
   # config.hide_layout_when_printing = false
@@ -115,6 +115,7 @@ Avo.configure do |config|
     if Rails.env.development?
       link "Jumpstart Config", path: Avo::Current.view_context.main_app.jumpstart_path
     end
+    link "Admin", path: "/admin"
   }
   config.profile_menu = -> {
     link "Profile", path: "/avo/profile", icon: "user-circle"
