@@ -1,0 +1,45 @@
+.flex.flex-wrap.my-4.lg:px-4
+  .w-full.mb-4.lg:p-4{:class => "lg:w-1/4"}
+    = render partial: "account_navbar"
+  .w-full.lg:p-4{:class => "lg:w-3/4"}
+    .p-4.bg-white.border.border-gray-200.dark:bg-gray-900.dark:border-gray-800.rounded-lg.lg:p-10
+      .sm:flex.items-center.justify-between.mb-5
+        .flex.items-center
+          = account_avatar @account, class: "flex-shrink-0 rounded-full mr-4 h-10 w-10"
+          %h1.h3= @account.name
+        .flex-shrink-0.mt-3.sm:mt-0.sm:text-right
+          = switch_account_button @account, label: t(".switch"), class: "btn btn-secondary", form_class: "inline-block" unless current_account == @account
+          = link_to t(".edit_account"), edit_account_path(@account), class: "btn btn-secondary" if !@account.personal? && account_admin?(@account, current_user)
+      - if @account.personal?
+        .alert.alert-info
+          %svg.flex-shrink-0.inline-block.h-4.w-4.mr-3.text-primary-800{:fill => "none", :stroke => "currentColor", :viewbox => "0 0 24 24", :xmlns => "http://www.w3.org/2000/svg"}
+            %path{:d => "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+          = t ".personal_team_description"
+      - else
+        %table.w-full
+          %thead
+            %tr
+              %th.p-3.text-xs.text-left.text-gray-600.dark:text-gray-300.uppercase= AccountUser.human_attribute_name(:user)
+              %th.p-3.text-xs.text-left.text-gray-600.dark:text-gray-300.uppercase= AccountUser.human_attribute_name(:roles)
+              %th
+          %tbody
+            - @account.account_users.includes(:user).each do |account_user|
+              - user = account_user.user
+              %tr.border-t.border-gray-100.dark:border-gray-800
+                %td.p-3.font-medium
+                  = image_tag avatar_url_for(user), class: "hidden lg:inline-block h-6 rounded-full mr-2"
+                  = user.name || user.email
+                %td.p-3.text-sm.font-medium.text-gray-700.dark:text-gray-300= account_user_roles(@account, account_user).join(", ")
+                %td.p-3.text-right= link_to t(".edit"), edit_account_account_user_path(@account, account_user), class: "btn btn-secondary" if account_admin?(@account, current_user)
+            - @account.account_invitations.each do |account_invitation|
+              %tr.border-t.border-gray-100.dark:border-gray-800
+                %td.p-3.font-medium
+                  = image_tag avatar_url_for(account_invitation), class: "hidden lg:inline-block h-6 rounded-full mr-2"
+                  = account_invitation.name
+                  = badge "Awaiting response"
+                %td.p-3.text-sm.font-medium.text-gray-700= account_user_roles(@account, account_invitation).join(", ")
+                %td.p-3.text-right.flex.gap-2.justify-end
+                  = button_to t(".resend_invite"), resend_account_account_invitation_path(@account, account_invitation), class: "btn btn-secondary" if account_admin?(@account, current_user)
+                  = tag.button t(".copy_link"), class: "btn btn-secondary", data: { controller: "clipboard", clipboard_text: account_invitation_url(account_invitation) } if account_admin?(@account, current_user)
+                  = link_to t(".edit"), edit_account_account_invitation_path(@account, account_invitation), class: "btn btn-secondary" if account_admin?(@account, current_user)
+        = link_to t(".invite"), new_account_account_invitation_path(@account), class: "mt-2 btn btn-secondary" if !@account.personal? && account_admin?(@account, current_user)

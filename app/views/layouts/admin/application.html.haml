@@ -1,0 +1,23 @@
+!!!
+%html
+  %body
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "noodp, noydir, index, follow", :name => "robots"}/
+    %meta{:content => "initial-scale=1", :name => "viewport"}/
+    %title
+      = content_for(:title) || 'Dashboard'
+      \- #{Jumpstart.config.application_name}
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    = javascript_include_tag "administrate", "data-turbo-track": "reload", defer: true
+    = render "stylesheet"
+    = csrf_meta_tags
+    %meta{:content => "/admin", :name => "turbo-root"}/
+    %link{:href => "https://rsms.me/", :rel => "preconnect"}/
+    %link{:href => "https://rsms.me/inter/inter.css", :rel => "stylesheet"}/
+    .app-container
+      = render "navigation"
+      %main.main-content{:role => "main"}
+        = render "flashes"
+        = yield
+    %div{:style => "display: none; width: 0; height: 0; overflow: hidden; position: absolute"}
+      = render "icons"

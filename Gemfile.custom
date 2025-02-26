@@ -7,6 +7,8 @@ gem "rails_event_store", "~> 2.0"
 gem "amazing_print"
 gem "rails_semantic_logger"
 gem "logtail-rails"
+gem "haml-rails", "~> 2.0"
+gem "html2haml", groups: [:development, :test]
 
 # third party apis
 gem 'dropbox_api'

@@ -1,0 +1,22 @@
+!!!
+%html.h-full.antialiased{:lang => "#{I18n.locale}"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title
+      - if content_for?(:title)
+        = yield :title
+        |
+      = Jumpstart.config.application_name
+    = csrf_meta_tags
+    = csp_meta_tag
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload'
+    = render "favicons"
+    %link{:href => "https://rsms.me/", :rel => "preconnect"}/
+    %link{:href => "https://rsms.me/inter/inter.css", :rel => "stylesheet"}/
+    = yield :head
+  %body.antialiased.font-sans.bg-gray-100.dark:bg-gray-900.dark:text-gray-50
+    .main.flex.flex-col
+      = yield
+    = render "footer", dark_mode_toggle: true unless turbo_native_app?

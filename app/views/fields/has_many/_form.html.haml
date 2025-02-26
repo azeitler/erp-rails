@@ -1,0 +1,5 @@
+.field-unit__label
+  = f.label field.attribute, for: "#{f.object_name}_#{field.attribute_key}"
+.field-unit__field
+  = f.select(field.attribute_key, nil, {}, multiple: true, data: {controller: "select"}) do
+    = options_for_select(field.associated_resource_options, field.selected_options)

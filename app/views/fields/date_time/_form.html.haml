@@ -1,0 +1,10 @@
+.field-unit__label
+  = f.label field.attribute
+.field-unit__field
+  = f.text_field field.attribute, data: {           |
+      controller: "flatpickr",                      |
+      flatpickr_enable_time: true,                  |
+      flatpickr_alt_input: true,                    |
+      flatpickr_alt_format: "F J (D), Y - h:i:S K", |
+      flatpickr_date_format: "Z"                    |
+    }                                               |

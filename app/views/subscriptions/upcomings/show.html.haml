@@ -1,0 +1,33 @@
+.max-w-7xl.mx-auto.mt-12.p-8.bg-white.rounded.shadow
+  %h3= t ".title"
+  .my-8
+    = render partial: "subscriptions/summary", locals: { subscription: @subscription }
+  .flex-1.mt-2.mb-4.text-gray-700
+    .font-bold= t ".description", product: Jumpstart.config.application_name
+  .text-xl.mb-4
+    = l Time.at(@invoice.period_start).to_date, format: :long
+    \- #{l Time.at(@invoice.period_end).to_date, format: :long}
+  %table.min-w-full.divide-y.divide-gray-300
+    %thead.text-left
+      %th.p-3= t ".line_items.description"
+      %th.p-3.text-right= t ".line_items.quantity"
+      %th.p-3.text-right= t ".line_items.unit_price"
+      %th.p-3.text-right= t ".line_items.total"
+    %tbody
+      - @invoice.lines.auto_paging_each do |line_item|
+        %tr.border-b.border-gray-200
+          %td.p-3= line_item.description
+          %td.p-3.text-right= line_item.quantity
+          %td.p-3.text-right= Pay::Currency.format (line_item.price.unit_amount_decimal || line_item.price.unit_amount), currency: line_item.price.currency
+          %td.p-3.text-right= Pay::Currency.format line_item.amount, currency: line_item.price.currency
+      %tr
+        %td.pt-3.px-3.text-right.font-semibold{:colspan => "3"} Subtotal
+        %td.pt-3.px-3.text-right= Pay::Currency.format @invoice.subtotal, currency: @invoice.currency
+      %tr
+        %td.py-1.px-3.text-right.font-semibold{:colspan => "3"} Tax
+        %td.py-1.px-3.text-right= Pay::Currency.format @invoice.tax, currency: @invoice.currency
+      %tr
+        %td.py-1.px-3.text-right.font-semibold{:colspan => "3"} Total
+        %td.py-1.px-3.text-right.font-semibold= Pay::Currency.format @invoice.total, currency: @invoice.currency
+  .mt-8.flex.justify-between.items-center
+    = link_to t(".back"), subscriptions_path, class: "btn btn-secondary"

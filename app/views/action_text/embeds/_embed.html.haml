@@ -1,0 +1,7 @@
+- if embed.rich? || embed.video? || embed.html
+  .embed
+    = embed.html.html_safe
+- elsif embed.photo?
+  = link_to image_tag(embed.fields["url"]), embed.fields["url"], target: :_blank
+- elsif embed.link?
+  = link_to embed.id, embed.id, target: :_blank

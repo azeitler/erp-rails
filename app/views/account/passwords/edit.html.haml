@@ -1,0 +1,31 @@
+.flex.flex-wrap.my-4.lg:px-4
+  .w-full.mb-4.lg:p-4{:class => "lg:w-1/4"}
+    = render partial: "account_navbar"
+  .w-full.lg:p-4{:class => "lg:w-3/4"}
+    .lg:p-10.p-4.bg-white.rounded-lg.border.border-gray-200.dark:bg-gray-900.dark:border-gray-700
+      %h1.h3.mb-4= t(".update_password")
+      = form_with(model: current_user, url: account_password_path, local: true, html: { method: :put }, class: "max-w-lg") do |f|
+        = render "error_messages", resource: current_user
+        .form-group
+          = f.label :current_password
+          = f.password_field :current_password, autocomplete: "current-password", placeholder: "Current password", class: "form-control"
+          %p.text-sm.text-gray-600.mt-3 We need your current password to confirm your changes
+        .form-group
+          = f.label :password, "New password"
+          = f.password_field :password, autocomplete: "new-password", placeholder: "New password", class: "form-control"
+          - if @minimum_password_length
+            %p.text-sm.text-gray-600.mt-3
+              = @minimum_password_length
+              characters minimum
+        .form-group
+          = f.label :password_confirmation, "Confirm new password"
+          = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm new password", class: "form-control"
+        .form-group
+          = f.submit t(".update"), class: "btn btn-primary"
+    .lg:p-10.mt-4.p-4.bg-white.rounded-lg.border.border-gray-200.dark:bg-gray-900.dark:border-gray-700
+      %h2.h3= t(".two_factor.header")
+      %p.mb-4.text-gray-500= t(".two_factor.description")
+      - if current_user.otp_required_for_login?
+        %div= link_to t(".two_factor.disable"), user_two_factor_path, class: "btn btn-danger btn-outline", data: { turbo_method: :delete, turbo_confirm: t("are_you_sure") }
+      - else
+        = link_to t(".two_factor.enable"), backup_codes_user_two_factor_path, class: "btn btn-secondary"

@@ -1,0 +1,119 @@
+!!!
+%html{:lang => "#{I18n.locale}"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    :css
+      /* Client-specific Styles */
+      #outlook a {
+        padding: 0;
+      }
+
+      /* Force Outlook to provide a "view in browser" button. */
+      body {
+        width: 100% !important;
+      }
+
+      .ReadMsgBody {
+        width: 100%;
+      }
+
+      .ExternalClass {
+        width: 100%;
+      }
+
+      /* Force Hotmail to display emails at full width */
+      body {
+        -webkit-text-size-adjust: none;
+      }
+
+      /* Prevent Webkit platforms from changing default text sizes. */
+
+      /* Reset Styles */
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      img {
+        border: 0;
+        height: auto;
+        line-height: 100%;
+        outline: none;
+        text-decoration: none;
+      }
+
+      table td {
+        border-collapse: collapse;
+      }
+
+      .bodyContent div {
+        color: #505050;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 150%;
+        text-align: left;
+      }
+
+      .addressContent div {
+        color: #505050;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        line-height: 140%;
+        text-align: left;
+      }
+
+      .bodyContent img {
+        display: inline;
+        height: auto;
+      }
+
+      .bodyContent div a:link,
+      .bodyContent div a:visited,
+      .bodyContent div a .yshortcuts
+
+      /* Yahoo! Mail Override */
+        {
+        color: #336699;
+        font-weight: normal;
+        text-decoration: underline;
+      }
+  %body{:leftmargin => "0", :marginheight => "0", :marginwidth => "0", :offset => "0", :topmargin => "0"}
+    %center
+      %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :height => "100%", :width => "100%"}
+        %tr
+          %td{:align => "center", :style => "padding-top:20px;", :valign => "top"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+              %tr
+                %td{:align => "center", :valign => "top"}
+                  %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "600"}
+                    %tr
+                      %td.bodyContent{:valign => "top"}
+                        %table{:border => "0", :cellpadding => "20", :cellspacing => "0", :width => "100%"}
+                          %tr
+                            %td{:valign => "top"}
+                              %div
+                                = yield
+              %tr
+                %td{:align => "center", :valign => "top"}
+                  %table{:border => "0", :cellpadding => "10", :cellspacing => "0", :width => "600"}
+                    %tr
+                      %td{:valign => "top"}
+                        %table{:border => "0", :cellpadding => "10", :cellspacing => "0", :width => "100%"}
+                          %tr
+                            %td.addressContent{:valign => "top"}
+                              %div
+                                %em= t(".copyright_html", year: Date.current.year)
+                                %br/
+                                %strong= t(".mailing_address")
+                                = simple_format [Jumpstart.config.business_name, Jumpstart.config.business_address].join("\n")
+                          %tr
+                            %td.bodyContent{:valign => "middle"}
+                              %div
+                                 
+                                \#{link_to t(".view_in_browser"), "#", target: :_blank}
+                                |
+                                \#{link_to t(".unsubscribe"), "#", target: :_blank}
+                                |
+                                \#{link_to t(".preferences"), "#", target: :_blank}
+                                 
+            %br/

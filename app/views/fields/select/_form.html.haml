@@ -1,0 +1,37 @@
+.field-unit__label
+  = f.label field.attribute
+.field-unit__field
+  - if field.selectable_options.first&.is_a?(Array)
+    = f.select(                                                  |
+        field.attribute,                                         |
+        options_from_collection_for_select(                      |
+          field.selectable_options,                              |
+          :last,                                                 |
+          :first,                                                |
+          field.data,                                            |
+        ),                                                       |
+        { include_blank: field.include_blank_option },           |
+        { data: {                                                |
+          controller: "select",                                  |
+          select_url_value: field.options[:url],                 |
+          select_label_field_value: field.options[:label_field], |
+          select_value_field_value: field.options[:value_field]  |
+        } }                                                      |
+      )                                                          |
+  - else
+    = f.select(                                                  |
+        field.attribute,                                         |
+        options_from_collection_for_select(                      |
+          field.selectable_options,                              |
+          :to_s,                                                 |
+          :to_s,                                                 |
+          field.data,                                            |
+        ),                                                       |
+        { include_blank: field.include_blank_option },           |
+        { data: {                                                |
+          controller: "select",                                  |
+          select_url_value: field.options[:url],                 |
+          select_label_field_value: field.options[:label_field], |
+          select_value_field_value: field.options[:value_field]  |
+        } }                                                      |
+      )                                                          |

@@ -1,0 +1,24 @@
+.max-w-xl.p-8.mx-auto.mt-12.bg-white.border.border-gray-200.rounded.dark:bg-gray-900.dark:border-gray-700
+  %h3= t ".header"
+  %p.mb-4.text-sm.text-gray-700= t ".subheader"
+  .mb-4
+    %ol.mt-5
+      %li
+        = t ".instructions_1_html",                                                                                     |
+          android: link_to("Android", "https://play.google.com/store/apps/details?id=com.authy.authy", target: :blank), |
+          ios: link_to("iOS", "https://apps.apple.com/us/app/authy/id494168017", target: :blank)                        |
+      %li= t ".instructions_2"
+      %li= t ".instructions_3"
+  .p-4.mx-auto.my-12.rounded.dark:bg-gray-200{:class => "w-2/5"}
+    = current_user.two_factor_otp_qr_code(viewbox: true).html_safe
+  .mx-auto.mb-4.text-sm.text-gray-700
+    %p.mb-4.text-sm.text-gray-700= t ".instructions_4"
+    %p= current_user.otp_app_code
+  %h6.font-semibold= t ".verify_header"
+  %p.mb-4.text-sm.text-gray-700= t ".verify_description"
+  = form_with url: user_two_factor_path do |form|
+    .form-group
+      = form.text_field :code, placeholder: "123456", class: "form-control"
+    .flex.justify-between
+      = link_to t(".cancel"), edit_account_password_path, class: "btn btn-secondary"
+      = form.submit t(".verify"), class: "btn btn-primary"

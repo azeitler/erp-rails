@@ -1,0 +1,12 @@
+.max-w-sm.mx-auto.mt-16
+  %h1.h3.text-center= t("users.sudo.header")
+  .bg-white.rounded.shadow.p-8.mt-8
+    = form_with url: sudo_path do |form|
+      = hidden_field_tag :redirect_to, params[:redirect_to] || request.url
+      .form-group
+        .flex.justify-between
+          = form.label :password
+          = link_to t("users.sudo.forgot_password"), new_user_password_path, class: "text-sm font-semibold"
+        = form.password_field :password, autocomplete: "current-password", placeholder: true, class: "form-control", autofocus: true
+      %div
+        = form.submit t('users.sudo.submit'), class: "btn btn-primary btn-expanded"

@@ -1,0 +1,12 @@
+%footer.w-full.h-auto.px-2.py-4.text-sm.lg:px-6
+  .flex.flex-col-reverse.p-4.text-sm.lg:flex-row.lg:justify-between.lg:p-0
+    .flex.items-center.justify-center
+      = link_to root_path, class: "hidden sm:inline-block" do
+        = render_svg 'mark', styles: "fill-current text-gray-700 hover:text-gray-800 dark:text-gray-50 dark:hover:text-gray-200 mark"
+      .ml-4.text-gray-700.dark:text-gray-50
+        © #{Date.current.year} #{Jumpstart.config.business_name}
+    / <ul class="list-none flex flex-wrap items-center justify-center">
+    / <li><haml_silent></haml_silent></li>
+    / <li><haml_silent></haml_silent></li>
+    / <li><haml_silent></haml_silent></li>
+    / </ul>

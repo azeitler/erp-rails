@@ -1,0 +1,8 @@
+- if embed.thumbnail_url
+  .embed
+    = image_tag embed.thumbnail_url
+- elsif embed.html
+  .embed
+    = embed.html.html_safe
+- elsif embed.provider_name
+  = link_to embed.provider_name, oembed.url

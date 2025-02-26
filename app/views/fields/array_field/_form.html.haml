@@ -1,0 +1,12 @@
+.field-unit__label
+  = f.label field.attribute
+.field-unit__field{"data-controller" => "array-field"}
+  - Array.wrap(f.object.send(field.attribute)).each do |item|
+    .row
+      = text_field_tag "#{f.object_name}[#{field.attribute}][]", item, autocomplete: :off
+      = link_to "Remove", "#", data: { action: "array-field#remove" }
+  = link_to "Add", "#", data: { action: "array-field#add" }
+  %template{"data-array-field-target" => "template"}
+    .row
+      = text_field_tag "#{f.object_name}[#{field.attribute}][]", nil, autocomplete: :off
+      = link_to "Remove", "#", data: { action: "array-field#remove" }

@@ -1,0 +1,18 @@
+.container.m-auto.my-10
+  .flex.flex-wrap.justify-center
+    .text-center
+      %h1= t(".heading")
+      %p.mt-2.text-xl.text-gray-500= t(".subhead")
+  .sm:flex.flex-wrap.items-center.justify-center{"data-controller" => "pricing", "data-pricing-active-frequency-class" => "shadow-sm text-black hover:text-black bg-white dark:text-white dark:hover:text-white dark:bg-gray-900", "data-pricing-hidden-toggle-class" => "hidden", "data-pricing-inactive-frequency-class" => "hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-200", "data-pricing-inactive-plans-class" => "hidden"}
+    .hidden.relative.self-center.my-8.bg-gray-200.dark:bg-gray-700.rounded-full.flex.sm:mt-8{:class => "p-0.5", "data-pricing-target" => "toggle"}
+      %button.relative.border-gray-200.rounded-full.py-2.text-sm.font-medium.whitespace-nowrap.focus:outline-none.focus:z-10.sm:w-auto.sm:px-8{:class => "w-1/2", "data-action" => "pricing#switch", "data-frequency" => "monthly", "data-pricing-target" => "frequency", :type => "button"} Monthly
+      %button.relative.border.border-transparent.rounded-full.py-2.text-sm.font-medium.whitespace-nowrap.focus:outline-none.focus:z-10.sm:w-auto.sm:px-8{:class => "ml-0.5 w-1/2", "data-action" => "pricing#switch", "data-frequency" => "yearly", "data-pricing-target" => "frequency", :type => "button"} Yearly
+    .w-full.lg:px-0.px-2{"data-turbo-prefetch" => "false"}
+      .flex.flex-wrap.items-center.justify-center.-mx-4{"data-frequency" => "monthly", "data-pricing-target" => "plans"}
+        - @monthly_plans.each do |plan|
+          = render layout: "subscriptions/plan", locals: { plan: plan } do
+            = pricing_link_to(plan)
+      .hidden.flex.flex-wrap.items-center.justify-center.-mx-4{"data-frequency" => "yearly", "data-pricing-target" => "plans"}
+        - @yearly_plans.each do |plan|
+          = render layout: "subscriptions/plan", locals: { plan: plan } do
+            = pricing_link_to(plan)

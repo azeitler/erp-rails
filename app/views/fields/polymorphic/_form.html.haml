@@ -1,0 +1,7 @@
+= f.fields_for field.attribute do |pf|
+  .field-unit__label
+    = pf.label :value, field.name.humanize
+  .field-unit__field
+    = pf.hidden_field(:type, value: field.class.name)
+    = pf.select(:value, nil, {}, {data: {controller: "select"}}) do
+      = grouped_options_for_select(field.associated_resource_grouped_options, field.selected_global_id, prompt: true)

@@ -1,0 +1,28 @@
+!!!
+%html{:class => "#{class_names("h-full antialiased", "dark": current_user.dark_theme?)}", :lang => "#{I18n.locale}"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title
+      - if content_for?(:title)
+        = yield :title
+        |
+      = Jumpstart.config.application_name
+    = csrf_meta_tags
+    = csp_meta_tag
+    = viewport_meta_tag
+    - if current_user&.system_theme?
+      :javascript
+        document.documentElement.classList.toggle("dark", window.matchMedia('(prefers-color-scheme: dark)').matches)
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    = stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload"
+    = render "favicons"
+    = render "payments_dependencies"
+    %link{:href => "https://rsms.me/", :rel => "preconnect"}/
+    %link{:href => "https://rsms.me/inter/inter.css", :rel => "stylesheet"}/
+    = yield :head
+  %body.h-full.font-sans.antialiased.font-normal.leading-normal.bg-white.dark:bg-gray-900.dark:text-gray-50{"data-controller" => "theme", "data-theme-preference-value" => "#{current_user.theme}"}
+    .main.flex.flex-col
+      = render "impersonation_banner"
+      = render "flash"
+      = yield
+    = render "footer", dark_mode_toggle: true unless turbo_native_app?

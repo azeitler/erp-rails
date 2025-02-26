@@ -1,0 +1,26 @@
+%body
+  - content_for :title, "Dashboard"
+  %header.main-content__header{:role => "banner"}
+    %h1.main-content__page-title
+      Dashboard
+  %section.main-content__body
+    .flex
+      .flex-1.shadow.rounded.p-4.m-4.text-center
+        %h4.font-normal.mb-2 Total Revenue
+        %p.text-3xl.font-bold= number_to_currency @total_revenue
+      .flex-1.shadow.rounded.p-4.m-4.text-center
+        %h4.font-normal.mb-2 Revenue Last 12mo
+        %p.text-3xl.font-bold= number_to_currency @last_12_mos
+      .flex-1.shadow.rounded.p-4.m-4.text-center
+        %h4.font-normal.mb-2 Last Month's Revenue
+        %p.text-3xl.font-bold= number_to_currency @last_month
+      .flex-1.shadow.rounded.p-4.m-4.text-center
+        %h4.font-normal.mb-2 This Month's Revenue To Date
+        %p.text-3xl.font-bold= number_to_currency @this_month
+    .flex
+      .flex-1.shadow.rounded.p-4.m-4.text-center
+        %h4.font-normal.mb-2 Users
+        %p.text-3xl.font-bold= @users
+      .flex-1.shadow.rounded.p-4.m-4.text-center
+        %h4.font-normal.mb-2 Active Subscriptions
+        %p.text-3xl.font-bold= @subscriptions

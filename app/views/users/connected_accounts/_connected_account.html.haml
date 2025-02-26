@@ -1,0 +1,10 @@
+.flex.border-top.align-middle.py-4
+  .flex-1
+    = image_tag connected_account.image_url, class: "inline-block h-10 w-10 rounded shadow mr-2"
+    .inline-block.align-middle
+      %div= connected_account.name
+      .font-semibold.text-sm.text-gray-700= connected_account.provider_name
+  = button_to user_connected_account_path(connected_account), method: :delete, class: "btn btn-link text-gray-700" do
+    %svg.w-4.h-4.mr-1{:fill => "currentColor", :viewbox => "0 0 16 16", :xmlns => "http://www.w3.org/2000/svg"}
+      %path{:d => "M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z"}
+    = t(".remove")
