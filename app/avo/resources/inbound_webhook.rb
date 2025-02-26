@@ -16,7 +16,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
     field :ip_address, as: :text
     field :user_agent, as: :text
 
-    field :headers, as: :code, theme: 'dracula', language: 'json', format_using: -> { JSON.pretty_generate(JSON.parse(value || "[]")) }
+    field :headers, as: :code, theme: 'dracula', language: 'json', format_using: -> { JSON.pretty_generate(value) }
 
     field :created_at, as: :date
   end
