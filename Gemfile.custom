@@ -21,3 +21,9 @@ gem 'pipedrive-ruby', github: 'azeitler/pipedrive-ruby', tag: '0.4.4'
 # Avo Pro
 gem "avo", ">= 3.2.1"
 gem "avo-pro", ">= 3.2.0", source: "https://packager.dev/avo-hq/"
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller', '>= 0.s'
+  gem "annotate"
+end

@@ -152,6 +152,9 @@ GEM
     aggregate_root (2.15.0)
       ruby_event_store (= 2.15.0)
     amazing_print (1.7.2)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     arkency-command_bus (0.4.1)
       concurrent-ruby
     ast (2.4.2)
@@ -178,6 +181,10 @@ GEM
     bcrypt_pbkdf (1.1.1-arm64-darwin)
     bcrypt_pbkdf (1.1.1-x86_64-darwin)
     benchmark (0.4.0)
+    better_errors (2.10.1)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
+      rouge (>= 1.0.0)
     better_html (2.1.1)
       actionview (>= 6.0)
       activesupport (>= 6.0)
@@ -187,6 +194,8 @@ GEM
       smart_properties
     bigdecimal (3.1.9)
     bindex (0.8.1)
+    binding_of_caller (1.0.1)
+      debug_inspector (>= 1.2.0)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     brakeman (6.1.2)
@@ -227,6 +236,7 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    debug_inspector (1.2.0)
     devise-i18n (1.12.1)
       devise (>= 4.9.0)
     docile (1.4.1)
@@ -545,6 +555,7 @@ GEM
     rexml (3.3.0)
       strscan
     rotp (6.3.0)
+    rouge (4.5.1)
     rqrcode (2.2.0)
       chunky_png (~> 1.0)
       rqrcode_core (~> 1.0)
@@ -711,8 +722,11 @@ DEPENDENCIES
   administrate-field-active_storage (~> 1.0.0)
   airtable!
   amazing_print
+  annotate
   avo (>= 3.2.1)
   avo-pro (>= 3.2.0)!
+  better_errors
+  binding_of_caller (>= 0.s)
   bootsnap (>= 1.4.2)
   brakeman
   bugsnag
