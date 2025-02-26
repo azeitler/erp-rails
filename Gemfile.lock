@@ -110,6 +110,7 @@ GEM
       rails (>= 7.0)
     aggregate_root (2.15.0)
       ruby_event_store (= 2.15.0)
+    amazing_print (1.7.2)
     arkency-command_bus (0.4.1)
       concurrent-ruby
     ast (2.4.2)
@@ -384,6 +385,10 @@ GEM
       ruby_event_store-browser (= 2.15.0)
     rails_event_store_active_record (2.15.0)
       ruby_event_store-active_record (= 2.15.0)
+    rails_semantic_logger (4.17.0)
+      rack
+      railties (>= 5.1)
+      semantic_logger (~> 4.16)
     railties (7.2.2.1)
       actionpack (= 7.2.2.1)
       activesupport (= 7.2.2.1)
@@ -473,6 +478,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    semantic_logger (4.16.1)
+      concurrent-ruby (~> 1.0)
     smart_properties (1.17.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -551,6 +558,7 @@ PLATFORMS
 DEPENDENCIES
   administrate!
   administrate-field-active_storage (~> 1.0.0)
+  amazing_print
   bootsnap (>= 1.4.2)
   brakeman
   bugsnag
@@ -586,6 +594,7 @@ DEPENDENCIES
   rack-attack (~> 6.6)
   rails (~> 7.2.0)
   rails_event_store (~> 2.0)
+  rails_semantic_logger
   receipts (~> 2.1)
   redis (~> 5.1)
   rotp (~> 6.2)
