@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_26_205842) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_26_211537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -405,6 +405,62 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_26_205842) do
     t.string "processor"
     t.string "event_type"
     t.jsonb "event"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pipedrive_companies", force: :cascade do |t|
+    t.string "identifier"
+    t.text "issues"
+    t.jsonb "properties"
+    t.string "title"
+    t.string "customer_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pipedrive_deals", force: :cascade do |t|
+    t.string "identifier"
+    t.text "issues"
+    t.jsonb "properties"
+    t.string "title"
+    t.string "pipeline"
+    t.string "status"
+    t.decimal "value"
+    t.datetime "close_date"
+    t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pipedrive_fields", force: :cascade do |t|
+    t.string "identifier"
+    t.jsonb "properties"
+    t.string "title"
+    t.string "field_level"
+    t.string "field_name"
+    t.string "field_target"
+    t.string "field_type"
+    t.jsonb "values"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pipedrive_people", force: :cascade do |t|
+    t.string "identifier"
+    t.text "issues"
+    t.jsonb "properties"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pipedrive_users", force: :cascade do |t|
+    t.string "identifier"
+    t.text "issues"
+    t.jsonb "properties"
+    t.string "title"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

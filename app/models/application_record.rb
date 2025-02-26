@@ -16,4 +16,20 @@ class ApplicationRecord < ActiveRecord::Base
   def self.sortable_columns
     @sortable_columns ||= columns.map(&:name)
   end
+
+  def name
+    return send(:name) if self.methods.include?('name')
+    return read_attribute(:name) if has_attribute?(:name)
+    return send(:title) if self.methods.include?('title')
+    return read_attribute(:title) if has_attribute?(:title)
+    'Name not provided'
+  end
+
+  def title
+    name
+  end
+
+  def full_title
+    title
+  end
 end
