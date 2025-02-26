@@ -9,6 +9,13 @@ namespace :admin do
   mount GoodJob::Engine => '/jobs'
   mount RailsEventStore::Browser => "/events"
 
+  # Avo admin panel
+  if defined?(Avo::Engine)
+    authenticated :user, lambda { |u| u.admin? } do
+      mount Avo::Engine, at: Avo.configuration.root_path
+    end
+  end
+
   resources :announcements
   resources :users do
     resource :impersonate, module: :user
