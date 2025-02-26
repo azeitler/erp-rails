@@ -6,6 +6,14 @@ module InboundWebhooks
       inbound_webhook.processing!
 
       # Process webhook
+      event = inbound_webhook.params['event']
+
+      Rails.configuration.event_store.publish(
+        BreakcoldEvent.new(data: {
+          event: event,
+        }),
+        stream_name: 'breakcold'
+      )
 
       inbound_webhook.processed!
 
