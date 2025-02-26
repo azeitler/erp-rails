@@ -1,4 +1,4 @@
-devise_for :users, skip: :registrations,
+devise_for :users,
   controllers: {
     omniauth_callbacks: ("users/omniauth_callbacks" if defined? OmniAuth),
     registrations: "users/registrations",
