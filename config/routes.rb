@@ -47,4 +47,12 @@ Rails.application.routes.draw do
 
   # Public marketing homepage
   root to: "static#index"
+
+  namespace :inbound_webhooks do
+    resources :attio, controller: :attio, only: [:create]
+    resources :easybill, controller: :easybill, only: [:create]
+    resources :pipedrive, controller: :pipedrive, only: [:create]
+    resources :lemlist, controller: :lemlist, only: [:create]
+    resources :breakcold, controller: :breakcold, only: [:create]
+  end
 end
