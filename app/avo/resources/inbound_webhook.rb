@@ -9,17 +9,13 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
     field :id, as: :id
     field :status, as: :select, enum: ::InboundWebhook.statuses
 
-    field :body, as: :code, theme: 'dracula', language: 'json', format_using: -> (record) do
-      JSON.pretty_generate(record.body)
-    end
+    field :body, as: :code, theme: 'dracula', language: 'json'
 
     field :controller_name, as: :text
     field :action_name, as: :text
     field :ip_address, as: :text
     field :user_agent, as: :text
 
-    field :headers, as: :code, theme: 'dracula', language: 'json', format_using: -> (record) do
-      JSON.pretty_generate(record.headers)
-    end
+    field :headers, as: :code, theme: 'dracula', language: 'json'
   end
 end
