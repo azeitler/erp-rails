@@ -21,12 +21,12 @@ Rails.application.routes.draw do
     end
   end
 
-  scope controller: :static do
-    get :about
-    get :terms
-    get :privacy
-    get :pricing
-  end
+  # scope controller: :static do
+  #   get :about
+  #   get :terms
+  #   get :privacy
+  #   get :pricing
+  # end
 
   match "/404", via: :all, to: "errors#not_found"
   match "/500", via: :all, to: "errors#internal_server_error"
