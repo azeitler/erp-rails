@@ -1,0 +1,22 @@
+---
+application_name: ERP
+business_name: Vu3D Software GmbH
+business_address: |-
+  Hoppestraße 5
+  93049 Regensburg
+domain: vu3d.dev
+support_email: help@vu3d.net
+default_from_email: Vu3D ERP <no-reply@vu3d.net>
+background_job_processor: good_job
+email_provider: postmark
+personal_accounts: true
+apns: false
+fcm: false
+integrations:
+- bugsnag
+omniauth_providers:
+payment_processors:
+multitenancy:
+gems:
+- oj
+- rack-attack
