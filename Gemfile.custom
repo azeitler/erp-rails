@@ -2,3 +2,11 @@ gem "rails_event_store", "~> 2.0"
 gem "amazing_print"
 gem "rails_semantic_logger"
 gem "logtail-rails"
+
+# third party apis
+gem 'dropbox_api'
+gem 'easybill-api'
+gem 'airtable', github: 'VuframeLab/airtable-ruby'
+gem 'pipedrive-ruby', github: 'azeitler/pipedrive-ruby', tag: '0.4.4'
+# gem 'pipedrive-ruby', github: 'azeitler/pipedrive-ruby', branch: 'develop'
+# gem 'pipedrive-ruby', path: "/Users/azeitler/LocalProjects/Gems/pipedrive-ruby"
