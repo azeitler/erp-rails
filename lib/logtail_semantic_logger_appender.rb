@@ -1,4 +1,3 @@
-
 require 'semantic_logger'
 require 'logtail'
 
@@ -12,12 +11,12 @@ class LogtailSemanticLoggerAppender < SemanticLogger::Subscriber
   def log(log)
     # Map Semantic Logger log levels to Logtail log levels
     logtail_level = case log.level
-                    when :trace, :debug then :debug
-                    when :info then :info
-                    when :warn then :warn
-                    when :error then :error
-                    when :fatal then :fatal
-                    else :info
+                    when :trace, :debug then Logtail::Logger::DEBUG
+                    when :info then Logtail::Logger::INFO
+                    when :warn then Logtail::Logger::WARN
+                    when :error then Logtail::Logger::ERROR
+                    when :fatal then Logtail::Logger::FATAL
+                    else Logtail::Logger::INFO
                     end
 
     # Send the log message to Logtail
