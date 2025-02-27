@@ -12,6 +12,46 @@ class PipedriveClient < ImportClient
   end
 
 
+
+  # def self.import_persons
+  #   log "importing persons..."
+  #   updated = 0
+  #   imported = 0
+  #   with_timer do
+  #     persons = pipedrive.pipedrive_persons
+  #     log "importing #{persons.count} persons..."
+  #     count = 0
+  #     persons.each do |person|
+  #       res = pipedrive.import_person(person)
+  #       updated += 1 if res == 1
+  #       imported += 1 if res == 2
+  #       count += 1
+  #       if count % 1000 == 0
+  #         log "imported #{count} persons..."
+  #       end
+  #     end
+  #     log "checking for deleted persons..."
+  #     deleted = Api::Helper.prune_model(persons.map { |obj| obj['id'].to_s }, PipedrivePerson)
+  #     log "imported #{imported} persons, updated #{updated}, deleted #{deleted} persons out of #{persons.count} persons"
+  #     PipedrivePerson.parse_all_and_save
+  #   end
+  #   self.imported_classes << PipedrivePerson
+  #   true
+  # end
+
+  def import_person(person)
+    unless person.is_a?(Pipedrive::Person)
+      log "needs to be a Pipedrive::Person" and return
+    end
+    person_id = person['id'].to_s
+    pipedrive_person, result = import_model_with_id(PipedriveCrm::Person, person_id) do |pipedrive_person|
+      pipedrive_person.properties = person.to_h
+      pipedrive_person.title = person['name']
+    end
+    result
+  end
+
+
   def fields
     @fields ||= begin
                   Pipedrive::DealField.all(nil, { :query => {} }, true) +

@@ -2,12 +2,12 @@ class Avo::Resources::PipedriveCrmField < Avo::BaseResource
   # self.includes = []
   # self.attachments = []
   self.model_class = ::PipedriveCrm::Field
+  self.authorization_policy = ViewOnlyPolicy
   # self.search = {
   #   query: -> { query.ransack(id_eq: params[:q], m: "or").result(distinct: false) }
   # }
 
   def fields
-
     # field :id, as: :id
     field :title, as: :id
     field :active_flag, as: :boolean

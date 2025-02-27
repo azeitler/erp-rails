@@ -19,23 +19,23 @@ Avo.configure do |config|
   end
 
   ## == Authentication ==
-  # config.current_user_method = {}
+  config.current_user_method = :current_user
   # config.authenticate_with do
   # end
 
   ## == Authorization ==
-  # config.authorization_methods = {
-  #   index: 'index?',
-  #   show: 'show?',
-  #   edit: 'edit?',
-  #   new: 'new?',
-  #   update: 'update?',
-  #   create: 'create?',
-  #   destroy: 'destroy?',
-  #   search: 'search?',
-  # }
-  # config.raise_error_on_missing_policy = false
-  # config.authorization_client = :pundit
+  config.authorization_methods = {
+    index: 'index?',
+    show: 'show?',
+    edit: 'edit?',
+    new: 'new?',
+    update: 'update?',
+    create: 'create?',
+    destroy: 'destroy?',
+    search: 'search?',
+  }
+  config.raise_error_on_missing_policy = false
+  config.authorization_client = :pundit
 
   ## == Localization ==
   # config.locale = 'en-US'
