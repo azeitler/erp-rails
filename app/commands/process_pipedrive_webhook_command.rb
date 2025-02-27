@@ -32,7 +32,8 @@ class ProcessPipedriveWebhookCommand < PipedriveCommand
       when 'person'
         execute_for_person
       else
-        raise StandardError.new("Webhook cannot be processed #{event} (unsupported entity)")
+        # raise StandardError.new("Webhook cannot be processed #{event} (unsupported entity)")
+        Rails.logger.warn("Webhook cannot be processed #{event} (unsupported entity)")
     end
   end
 

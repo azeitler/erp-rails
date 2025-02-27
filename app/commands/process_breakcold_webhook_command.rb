@@ -26,7 +26,7 @@ class ProcessBreakcoldWebhookCommand < BreakcoldCommand
         execute_command(CreateOrUpdateBreakcoldCommand)
       else
         # raise StandardError.new("Webhook cannot be processed #{event} (unsupported action)")
-        Rails.logger.warn "Webhook cannot be processed #{event} (unsupported action)"
+        Rails.logger.warn("Webhook cannot be processed #{event} (unsupported action)")
     end
   end
 
