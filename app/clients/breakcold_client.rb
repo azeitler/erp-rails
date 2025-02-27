@@ -83,8 +83,8 @@ class BreakcoldClient < ImportClient
   end
 
   def import_lead(lead)
-    unless lead.is_a?(OpenStruct)
-      log "needs to be a OpenStruct" and return
+    unless lead.is_a?(OpenStruct) || lead.is_a?(Hash)
+      log "import_lead: needs to be a OpenStruct" and return
     end
     lead_id = lead['id'].to_s
     breakcold_lead, result = import_model_with_id(lead.is_company ? Breakcold::Company : Breakcold::Person, lead_id) do |breakcold_lead|
