@@ -1,9 +1,9 @@
 # a thing that is deleted by a profile
-module ObjectWithIssues
+module Helpers::ObjectWithIssues
   extend ActiveSupport::Concern
 
   included do
-    serialize :issues, Array
+    # serialize :issues, Array
     scope :has_issues, -> { where.not(issues: nil) }
   end
 

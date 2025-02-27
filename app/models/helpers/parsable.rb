@@ -1,4 +1,4 @@
-module Parsable
+module Helpers::Parsable
 
   def self.included(base)
     base.extend(ClassMethods)
@@ -70,15 +70,15 @@ module Parsable
             begin
               entity.parse_and_save
             rescue Exception => ex
-              puts "could not parse: #{entity.class.name} ##{entity.id} -> #{ex} #{ex.backtrace.join('\n')}".red
+              Rails.logger.error "could not parse: #{entity.class.name} ##{entity.id} -> #{ex} #{ex.backtrace.join('\n')}"
               # puts "could not parse: #{entity.class.name} ##{entity.id} -> #{ex}".red
             end
             count += 1
-            puts "#{count}/#{klass.count} (#{(count.to_f / klass.count * 100).to_i}%)".green if count % 100 == 0
+            Rails.logger.info "#{count}/#{klass.count} (#{(count.to_f / klass.count * 100).to_i}%)" if count % 100 == 0
           end
         end
       rescue Exception => ex
-        puts "#{ex}".red
+        Rails.logger.error "#{ex}"
         # binding.pry
       end
       puts "done!"

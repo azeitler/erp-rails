@@ -112,6 +112,13 @@ Avo.configure do |config|
       resource :subscription
     end
 
+    section "Pipedrive", icon: "heroicons/outline/currency-dollar" do
+      resource :pipedrive_crm_field, label: "Fields"
+      resource :pipedrive_crm_deal, label: "Deals"
+      resource :pipedrive_crm_person, label: "People"
+      resource :pipedrive_crm_company, label: "Companies"
+    end
+
     section "Integrations", icon: "heroicons/outline/puzzle" do
       resource :inbound_webhook
     end

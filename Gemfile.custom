@@ -1,6 +1,7 @@
 # environment variables
 gem "file_exists"
 gem 'dotenv', groups: [:development, :test]
+gem "colorize"
 
 # middleware
 gem "rails_event_store", "~> 2.0"

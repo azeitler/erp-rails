@@ -345,4 +345,15 @@ class ApplicationClient
       @parsed_body ||= PARSER.fetch(content_type, FALLBACK_PARSER).call(self)
     end
   end
+
+
+  def log(obj)
+    self.class.log(obj)
+  end
+
+  def self.log(obj)
+    Rails.logger.info(obj, { client: name })
+  end
+
+
 end
