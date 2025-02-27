@@ -1,5 +1,7 @@
 class Avo::Actions::ProcessWebhook < Avo::BaseAction
   self.name = "Process Webhook"
+  self.no_confirmation = true
+
   # self.visible = -> do
   #   true
   # end
