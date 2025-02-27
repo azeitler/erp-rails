@@ -589,7 +589,7 @@ GEM
       rubocop-minitest
       rubocop-performance
       rubocop-rails
-    ruby-oembed (0.17.0)
+    ruby-oembed (0.18.1)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.1)
       ffi (~> 1.12)
@@ -773,7 +773,7 @@ DEPENDENCIES
   rotp (~> 6.2)
   rqrcode (~> 2.1)
   rubocop-rails-omakase
-  ruby-oembed (~> 0.17.0)
+  ruby-oembed (~> 0.18.1)
   ruby_event_store-browser!
   selenium-webdriver (>= 4.20.1)
   sprockets-rails (>= 3.4.1)
