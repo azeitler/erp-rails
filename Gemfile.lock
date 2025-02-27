@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/VuframeLab/airtable-ruby.git
-  revision: 8e36b61c8f8c35dae3443bd3f8b72b36514c0966
-  specs:
-    airtable (0.2.0.pre.pre)
-      activesupport (>= 3.0)
-      httparty
-
-GIT
   remote: https://github.com/azeitler/pipedrive-ruby.git
   revision: fc4e53aa718054eab02062c3430d56499919067b
   tag: 0.4.4
@@ -721,7 +713,6 @@ PLATFORMS
 DEPENDENCIES
   administrate!
   administrate-field-active_storage (~> 1.0.0)
-  airtable!
   amazing_print
   annotate
   avo (>= 3.2.1)
