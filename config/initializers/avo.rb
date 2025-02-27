@@ -44,7 +44,7 @@ Avo.configure do |config|
   # config.resource_controls_placement = :right
   # config.model_resource_mapping = {}
   # config.default_view_type = :table
-  # config.per_page = 24
+  config.per_page = 100
   # config.per_page_steps = [12, 24, 48, 72]
   # config.via_per_page = 8
   config.id_links_to_resource = true
@@ -111,6 +111,8 @@ Avo.configure do |config|
       resource :payment_method
       resource :subscription
     end
+
+    resource :persona
 
     section "Pipedrive", icon: "heroicons/outline/currency-dollar" do
       resource :pipedrive_crm_field, label: "Fields"

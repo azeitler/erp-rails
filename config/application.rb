@@ -24,6 +24,9 @@ module JumpstartApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.autoload_paths += Dir[Rails.root.join("app/commands/")]
+    config.eager_load_paths += Dir[Rails.root.join("app/commands/")]
+
     # Use ErrorsController for handling 404s and 500s.
     config.exceptions_app = routes
 

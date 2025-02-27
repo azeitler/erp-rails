@@ -1,10 +1,17 @@
 # config/initializers/rails_event_store.rb
 Rails.configuration.to_prepare do
-  event_store = RailsEventStore::JSONClient.new
-  Rails.configuration.event_store = event_store
+  Rails.configuration.event_store = RailsEventStore::JSONClient.new
 
   # add subscribers here
-  event_store.subscribe(LinkedinInviteAcceptedCommand.new, to: [LinkedinInviteAcceptedEvent])
-  event_store.subscribe(LinkEventToStreamCommand.new('lemlist'), to: [LinkedinInviteAcceptedEvent])
+  Rails.configuration.event_store.subscribe(LinkEventToStreamCommand.new('lemlist'), to: [LinkedinInviteAcceptedEvent])
+  Rails.configuration.event_store.subscribe(LinkedinInviteAcceptedCommand.new, to: [LinkedinInviteAcceptedEvent])
+  # Rails.configuration.event_store.subscribe(to: [LinkedinInviteAcceptedEvent]) do |event|
+  #   Rails.logger.info "🚨🚨🚨 LinkedinInviteAcceptedEvent: #{event.inspect}"
+  # end
+
+  # puts "🚨🚨🚨 Rails.configuration.event_store: #{Rails.configuration.event_store.inspect}"
+  # puts LinkEventToStreamCommand.new('lemlist').inspect
+
   # Rails.configuration.event_store.subscribe(ChangeEcoModeCommand.new, to: [Admin::StudioEcoModeChangedEvent])
+
 end
