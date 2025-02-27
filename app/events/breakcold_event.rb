@@ -6,7 +6,13 @@
 # -----
 
 class BreakcoldEvent < ApplicationEvent
-  def to_s
-    super + " (Event)"
+
+  def event
+    self.data[:event]
+  end
+
+  def event_type
+    return "#{event} (#{super})" unless event.blank?
+    super
   end
 end
