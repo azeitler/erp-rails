@@ -5,13 +5,13 @@
 # Copyright (c) 2025 Andreas Zeitler
 # -----
 
-# a command to be executed on an pipedrive entity directly
-class PipedriveCommand < ApplicationCommand
+# a command to be executed on an breakcold entity directly
+class BreakcoldCommand < ApplicationCommand
 
   attr_reader :payload, :id
 
   def client
-    @client ||= PipedriveClient.new
+    @client ||= BreakcoldClient.new
   end
 
   # @param [Hash] payload: data of the pipedrive object (not wrapped into other fields)

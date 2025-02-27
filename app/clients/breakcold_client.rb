@@ -71,8 +71,8 @@ class BreakcoldClient < ImportClient
       @leads = leads
       @leads.each do |lead|
         res = import_lead(lead)
-        updated += 1 if res == 1
-        imported += 1 if res == 2
+        updated += 1 if res == :updated
+        imported += 1 if res == :imported
       end
       deleted = 0
       deleted = prune_model(@leads.select{ |lead| lead.is_company }.map { |lead| lead['id'].to_s }, Breakcold::Company)

@@ -16,11 +16,14 @@ module InboundWebhooks
         }),
         stream_name: 'breakcold'
       )
+      ProcessBreakcoldWebhookCommand.execute_for(inbound_webhook)
 
       inbound_webhook.processed!
-
-      # Or mark as failed and re-enqueue the job
-      # inbound_webhook.failed!
+    rescue StandardError => e
+      Rails.logger.error "#{self.class.name} for processing webhook failed: #{e}"
+      Bugsnag.add_metadata("Webhook Data", inbound_webhook.params)
+      Bugsnag.notify(e)
+      inbound_webhook.failed!
     end
   end
 end

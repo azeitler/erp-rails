@@ -5,24 +5,24 @@
 # Copyright (c) 2025 Andreas Zeitler
 # -----
 
-class CreateOrUpdatePipedrivePersonCommand < PipedriveCommand
+class CreateOrUpdateBreakcoldLeadCommand < BreakcoldCommand
 
   def entity
-    'person'
+    'lead'
   end
 
   def execute
-    log "importing person..."
-    record, result = client.import_person(payload)
+    log "importing lead..."
+    record, result = client.import_lead(payload)
     if record && (result == :imported || result == :updated)
       Rails.configuration.event_store.publish(
         RecordUpdatedEvent.new(data: {
           record_type: record.class.name,
           record_id: record.id,
         }),
-        stream_name: 'pipedrive',
+        stream_name: 'breakcold',
       )
     end
-    log "importing person... done!"
+    log "importing lead... done!"
   end
 end

@@ -69,8 +69,8 @@ class PipedriveClient < ImportClient
     with_timer do
       fields.each do |field|
         res = import_field(field)
-        updated += 1 if res == 1
-        imported += 1 if res == 2
+        updated += 1 if res == :updated
+        imported += 1 if res == :imported
       end
       deleted = prune_model(fields.map { |field|
         field_type = field.class.name.gsub("Pipedrive::", "").gsub("Field", "").downcase

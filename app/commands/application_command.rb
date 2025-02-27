@@ -11,7 +11,19 @@ class ApplicationCommand
     raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
   end
 
+  def to_s
+    "[#{self.class.name}]"
+  end
+
   def log(str)
-    Rails.logger.info "#{self.class.name} #{str}"
+    Rails.logger.info "#{self} #{str}"
+  end
+
+  def execute_command(command_klass)
+    command_klass.new(payload).execute
+  rescue StandardError => e
+    Rails.logger.error "failed to execute command #{command_klass.name}: #{e}"
+    Bugsnag.add_metadata("Command Payload", payload)
+    Bugsnag.notify(e)
   end
 end

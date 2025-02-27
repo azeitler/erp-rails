@@ -64,9 +64,9 @@ class ImportClient < ApplicationClient
     entity = klass.find_by(identifier: id)
     entity = klass.new(identifier: id) if entity.nil?
     yield(entity)
-    status_code = 0
+    status_code = nil
     if entity.changed? or !entity.persisted?
-      status_code = entity.persisted? ? 1 : 2
+      status_code = entity.persisted? ? :updated : :imported
       entity.parse_and_save
     end
     return entity, status_code

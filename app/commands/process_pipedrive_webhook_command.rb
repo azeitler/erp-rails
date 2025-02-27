@@ -25,7 +25,7 @@ class ProcessPipedriveWebhookCommand < PipedriveCommand
   end
 
   def execute
-    log event
+    # log event
 
     # puts "SimpleCommand: See, I can do simple things like printing (#{@payload})"
     case entity
@@ -40,18 +40,10 @@ class ProcessPipedriveWebhookCommand < PipedriveCommand
   def execute_for_person
     case action
       when 'create', 'change'
-        try_and_execute_action(CreateOrUpdatePipedrivePersonCommand)
+        execute_command(CreateOrUpdatePipedrivePersonCommand)
       else
         raise StandardError.new("Webhook cannot be processed #{event} (unsupported action)")
     end
-  end
-
-  def try_and_execute_action(command_klass)
-    command_klass.new(payload).execute
-  rescue StandardError => e
-    Rails.logger.error "failed to execute command #{command_klass.name}: #{e}"
-    Bugsnag.add_metadata("Command Payload", payload)
-    Bugsnag.notify(e)
   end
 
 end
