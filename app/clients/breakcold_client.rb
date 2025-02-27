@@ -57,7 +57,7 @@ class BreakcoldClient < ImportClient
     leads = response.leads
     page = response.pagination.page
     page_size = response.pagination.page_size
-    total = 100 # response.total
+    total = response.total
     # iterate leads
     while leads.count < total
       puts "loading starting at lead no. #{page}, leads: #{leads.count}/#{total}"
