@@ -6,4 +6,17 @@
 # -----
 
 class ApplicationEvent < RailsEventStore::Event
+
+  # define method to access self.data
+  def self.data_attribute(key, default = nil)
+    attr_reader key
+    define_method(key) do
+      data[key] || default
+    end
+  end
+
+  def self.event_store
+    Rails.configuration.event_store
+  end
+
 end

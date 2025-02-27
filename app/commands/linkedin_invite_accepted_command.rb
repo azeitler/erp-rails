@@ -8,6 +8,6 @@
 class LinkedinInviteAcceptedCommand < ApplicationCommand
 
   def execute
-
+    LinkedinInviteAcceptedNotifier.with(message: message).deliver_later(User.first)
   end
 end

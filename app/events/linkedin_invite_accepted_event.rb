@@ -62,4 +62,18 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   #   stream_name: 'linkedin'
   # )
 
+  data_attribute :lead_id
+  data_attribute :lemlist_user_id
+  data_attribute :campaign_id
+  data_attribute :campaign_name
+  data_attribute :sender_name
+  data_attribute :recipient_name
+  data_attribute :recipient_picture
+  data_attribute :recipient_linkedin_url
+  data_attribute :recipient_occupation
+
+  def notification_message
+    "#{recipient_name} (#{recipient_occupation}) hat die LinkedIn-Einladung von #{sender_name} angenommen."
+  end
+
 end
