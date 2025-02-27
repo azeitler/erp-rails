@@ -15,7 +15,7 @@ class PipedriveEvent < ApplicationEvent
     self.data[:id]
   end
 
-  def event_type
+  def event_label
     return "#{event} ##{id} (#{super})" unless event.blank?
     super
   end

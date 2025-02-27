@@ -4,6 +4,7 @@ gem 'dotenv', groups: [:development, :test]
 gem "colorize"
 
 # middleware
+gem "ruby_event_store-browser", path: "./local/ruby_event_store-browser"
 gem "rails_event_store", "~> 2.0"
 gem "amazing_print"
 gem "rails_semantic_logger"

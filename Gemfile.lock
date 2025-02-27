@@ -41,6 +41,13 @@ PATH
     jumpstart (0.1.0)
       rails
 
+PATH
+  remote: local/ruby_event_store-browser
+  specs:
+    ruby_event_store-browser (2.15.0)
+      rack
+      ruby_event_store (= 2.15.0)
+
 GEM
   remote: https://packager.dev/avo-hq/
   specs:
@@ -591,9 +598,6 @@ GEM
     ruby_event_store-active_record (2.15.0)
       activerecord (>= 6.0)
       ruby_event_store (= 2.15.0)
-    ruby_event_store-browser (2.15.0)
-      rack
-      ruby_event_store (= 2.15.0)
     ruby_parser (3.21.1)
       racc (~> 1.5)
       sexp_processor (~> 4.16)
@@ -770,6 +774,7 @@ DEPENDENCIES
   rqrcode (~> 2.1)
   rubocop-rails-omakase
   ruby-oembed (~> 0.17.0)
+  ruby_event_store-browser!
   selenium-webdriver (>= 4.20.1)
   sprockets-rails (>= 3.4.1)
   standard

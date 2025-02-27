@@ -80,7 +80,7 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
     "hat die LinkedIn-Einladung von #{sender_name} angenommen!"
   end
 
-  def event_type
+  def event_label
     "#{recipient_name} (#{recipient_occupation}) by #{sender_name} (#{super})"
   end
 

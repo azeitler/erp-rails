@@ -19,4 +19,8 @@ class ApplicationEvent < RailsEventStore::Event
     Rails.configuration.event_store
   end
 
+  def event_label
+    event_type
+  end
+
 end

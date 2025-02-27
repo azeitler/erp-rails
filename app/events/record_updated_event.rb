@@ -14,7 +14,7 @@ class RecordUpdatedEvent < ApplicationEvent
     self.data[:record_id]
   end
 
-  def event_type
+  def event_label
     return "#{record_type} ##{record_id} (#{super})" unless record_type.blank?
     super
   end

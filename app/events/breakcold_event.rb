@@ -11,7 +11,7 @@ class BreakcoldEvent < ApplicationEvent
     self.data[:event]
   end
 
-  def event_type
+  def event_label
     return "#{event} (#{super})" unless event.blank?
     super
   end
