@@ -62,6 +62,12 @@ class PipedriveClient < ImportClient
                 end
   end
 
+  def users
+    @users ||= begin
+                 Pipedrive::User.all(nil, { :query => {} }, true) # .select { |e| e.active_flag }
+               end
+  end
+
   def import_fields
     log "importing fields..."
     updated = 0
@@ -92,6 +98,36 @@ class PipedriveClient < ImportClient
       pipedrive_field.title = field['name']
     end
     pipedrive_field.parse_and_save
+    result
+  end
+
+  def import_users
+    log "importing users..."
+    updated = 0
+    imported = 0
+    _users = users
+    with_timer do
+      _users.each do |user|
+        res = import_user(user)
+        updated += 1 if res == :updated
+        imported += 1 if res == :imported
+      end
+      deleted = prune_model(_users.map { |user| user['id'].to_s }, PipedriveCrm::User)
+      PipedriveCrm::User.parse_all_and_save
+      log "imported #{imported} users, updated #{updated}, deleted #{deleted} users out of #{_users.count} users"
+    end
+  end
+
+  def import_user(user)
+    unless user.is_a?(Pipedrive::User) || user.is_a?(Hash)
+      log "needs to be a Pipedrive::User or Hash" and return
+    end
+    user_id = user['id'].to_s
+    pipedrive_user, result = import_model_with_id(PipedriveCrm::User, user_id) do |pipedrive_user|
+      pipedrive_user.properties = user.to_h
+      pipedrive_user.title = user['name']
+    end
+    pipedrive_user.parse_and_save
     result
   end
 

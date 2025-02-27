@@ -3,6 +3,6 @@ class PipedriveCrm::User < ApplicationRecord
   include Helpers::ObjectWithIssues
 
   def parse
-
+    self.email = properties['email']
   end
 end

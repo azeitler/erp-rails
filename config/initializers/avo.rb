@@ -98,19 +98,19 @@ Avo.configure do |config|
     end
 
     section "Users", icon: "heroicons/outline/user-group" do
-      resource :announcement
+      # resource :announcement
       resource :user
       resource :account
       resource :account_user
-      resource :plan
+      # resource :plan
     end
 
-    section "Pay", icon: "heroicons/outline/currency-dollar" do
-      resource :customer
-      resource :charge
-      resource :payment_method
-      resource :subscription
-    end
+    # section "Pay", icon: "heroicons/outline/currency-dollar" do
+    #   resource :customer
+    #   resource :charge
+    #   resource :payment_method
+    #   resource :subscription
+    # end
 
     resource :persona
 
@@ -119,6 +119,7 @@ Avo.configure do |config|
       resource :pipedrive_crm_deal, label: "Deals"
       resource :pipedrive_crm_person, label: "People"
       resource :pipedrive_crm_company, label: "Companies"
+      resource :pipedrive_crm_user, label: "Users"
     end
 
     section "Breakcold", icon: "heroicons/outline/currency-dollar" do
