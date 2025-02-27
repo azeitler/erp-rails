@@ -73,7 +73,12 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   data_attribute :recipient_occupation
 
   def notification_message
-    "#{recipient_name} (#{recipient_occupation}) hat die LinkedIn-Einladung von #{sender_name} angenommen."
+    "[#{campaign_name}] #{recipient_name} (#{recipient_occupation}) hat die LinkedIn-Einladung von #{sender_name} angenommen."
+  end
+
+  def event_type
+    return "#{recipient_name} (#{recipient_occupation}) by #{sender_name} (#{super})" unless event.blank?
+    super
   end
 
 end

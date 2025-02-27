@@ -8,6 +8,7 @@
 class LinkedinInviteAcceptedCommand < ApplicationCommand
 
   def execute
-    LinkedinInviteAcceptedNotifier.with(message: message).deliver_later(User.first)
+    raise 'No event data' unless event
+    LinkedinInviteAcceptedNotifier.with(message: event.notification_message).deliver_later(User.first)
   end
 end

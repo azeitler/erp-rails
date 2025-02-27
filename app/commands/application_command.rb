@@ -11,6 +11,8 @@ class ApplicationCommand
     raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
   end
 
+  attr_reader :event
+
   def call(event)
     @event = event
     execute
