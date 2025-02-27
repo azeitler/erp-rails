@@ -36,17 +36,20 @@ class BreakcoldClient < ImportClient
 
   def leads
     response = post("/leads/list").parsed_body
-    if response.pagination.page_size < 2
+    unless response['pagination']
       return response.leads
     end
 
     leads = response.leads
-    # iterate pages
+    page = response.pagination.page
     page_size = response.pagination.page_size
-    (2..page_size).each do |page|
-      puts "loading page #{page}/#{page_size}, current leads: #{leads.count}"
-      response = post("/leads/list", query:{cursor:page}).parsed_body
-      leads += response.leads
+    total = 100 # response.total
+    # iterate leads
+    while leads.count < total
+      puts "loading starting at lead no. #{page}, leads: #{leads.count}/#{total}"
+      page_response = post("/leads/list", body: {pagination:{page:page+1, page_size:page_size}}).parsed_body
+      leads += page_response.leads
+      page = page_response.pagination.page
     end
 
     leads
@@ -71,9 +74,11 @@ class BreakcoldClient < ImportClient
         updated += 1 if res == 1
         imported += 1 if res == 2
       end
-      deleted = prune_model(@leads.map { |lead| lead['id'].to_s }, Breakcold::Lead)
+      deleted = 0
+      deleted = prune_model(@leads.select{ |lead| lead.is_company }.map { |lead| lead['id'].to_s }, Breakcold::Company)
+      deleted += prune_model(@leads.select{ |lead| !lead.is_company }.map { |lead| lead['id'].to_s }, Breakcold::Person)
       Breakcold::Lead.parse_all_and_save
-      log "imported #{imported} leads, updated #{updated}, deleted #{deleted} leads out of #{leads.count} leads"
+      log "imported #{imported} leads, updated #{updated}, deleted #{deleted} leads out of #{@leads.count} leads"
     end
   end
 
@@ -82,10 +87,10 @@ class BreakcoldClient < ImportClient
       log "needs to be a OpenStruct" and return
     end
     lead_id = lead['id'].to_s
-    breakcold_lead, result = import_model_with_id(Breakcold::Lead, lead_id) do |breakcold_lead|
+    breakcold_lead, result = import_model_with_id(lead.is_company ? Breakcold::Company : Breakcold::Person, lead_id) do |breakcold_lead|
       breakcold_lead.properties = lead.to_h
       breakcold_lead.type = lead.is_company ? "Breakcold::Company" : "Breakcold::Person"
-      breakcold_lead.title = lead['name']
+      # puts "imported #{breakcold_lead.type} #{breakcold_lead.id} #{lead.id}"
     end
     breakcold_lead.parse_and_save
     result
