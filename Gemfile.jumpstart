@@ -23,7 +23,7 @@ gem "pundit", "~> 2.1"
 gem "receipts", "~> 2.1"
 gem "rotp", "~> 6.2"
 gem "rqrcode", "~> 2.1"
-gem "ruby-oembed", "~> 0.17.0", require: "oembed"
+gem "ruby-oembed", "~> 0.18.1", require: "oembed"
 
 group :development, :test do
   # Lint code for consistent style
