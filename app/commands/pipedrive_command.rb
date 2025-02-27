@@ -8,16 +8,16 @@
 # a command to be executed on an pipedrive entity directly
 class PipedriveCommand < PayloadCommand
 
-  attr_reader :payload
+  attr_reader :id
 
   def client
     @client ||= PipedriveClient.new
   end
 
   # @param [Hash] payload: data of the pipedrive object (not wrapped into other fields)
-  def initialize(payload)
-    super(payload)
-    @id = payload['id'] unless payload['id'].blank?
+  def initialize(data)
+    super(data)
+    @id = data['id'] unless data['id'].blank?
   end
 
   def to_s
