@@ -19,7 +19,7 @@ class LinkedinInviteAcceptedNotifier < ApplicationNotifier
   end
 
   deliver_by :slack do |config|
-    config.url = "https://hooks.slack.com/services/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"
+    config.url = Rails.application.credentials.dig(:slack, :webhook_url)
     config.json = ->(notification) {
       {
         text: notification.message,

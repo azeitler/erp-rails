@@ -77,8 +77,7 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   end
 
   def event_type
-    return "#{recipient_name} (#{recipient_occupation}) by #{sender_name} (#{super})" unless event.blank?
-    super
+    "#{recipient_name} (#{recipient_occupation}) by #{sender_name} (#{super})"
   end
 
 end
