@@ -10,6 +10,7 @@ class Avo::Resources::PipedriveCrmPerson < Avo::BaseResource
   def fields
     field :id, as: :id
     field :title, as: :text
+    field :email, as: :text
     field :identifier, as: :text
     field :issues, as: :textarea
     field :properties, as: :code, theme: 'dracula', language: 'json', format_using: ->  do

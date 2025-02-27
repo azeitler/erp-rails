@@ -40,14 +40,15 @@ class PipedriveClient < ImportClient
   # end
 
   def import_person(person)
-    unless person.is_a?(Pipedrive::Person)
-      log "needs to be a Pipedrive::Person" and return
+    unless person.is_a?(Pipedrive::Person) || person.is_a?(Hash)
+      log "needs to be a Pipedrive::Person or Hash" and return
     end
     person_id = person['id'].to_s
     pipedrive_person, result = import_model_with_id(PipedriveCrm::Person, person_id) do |pipedrive_person|
       pipedrive_person.properties = person.to_h
       pipedrive_person.title = person['name']
     end
+    pipedrive_person.parse_and_save
     result
   end
 
@@ -90,6 +91,7 @@ class PipedriveClient < ImportClient
       pipedrive_field.properties = field.to_h
       pipedrive_field.title = field['name']
     end
+    pipedrive_field.parse_and_save
     result
   end
 

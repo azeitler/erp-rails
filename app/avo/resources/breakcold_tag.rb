@@ -2,6 +2,7 @@ class Avo::Resources::BreakcoldTag < Avo::BaseResource
   # self.includes = []
   # self.attachments = []
   self.model_class = ::Breakcold::Tag
+  self.authorization_policy = ViewOnlyPolicy
   # self.search = {
   #   query: -> { query.ransack(id_eq: params[:q], m: "or").result(distinct: false) }
   # }
@@ -9,7 +10,9 @@ class Avo::Resources::BreakcoldTag < Avo::BaseResource
   def fields
     field :id, as: :id
     field :identifier, as: :text
-    field :properties, as: :text
     field :title, as: :text
+    field :properties, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
+      JSON.pretty_generate(value)
+    end
   end
 end

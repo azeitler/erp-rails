@@ -119,6 +119,14 @@ Avo.configure do |config|
       resource :pipedrive_crm_company, label: "Companies"
     end
 
+    section "Breakcold", icon: "heroicons/outline/currency-dollar" do
+      resource :breakcold_person, label: "People"
+      resource :breakcold_company, label: "Companies"
+      resource :breakcold_list, label: "Lists"
+      resource :breakcold_tag, label: "Tags"
+      resource :breakcold_status, label: "Status"
+    end
+
     section "Integrations", icon: "heroicons/outline/puzzle" do
       resource :inbound_webhook
     end

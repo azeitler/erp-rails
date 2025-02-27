@@ -6,5 +6,7 @@
 # -----
 
 class BreakcoldEvent < ApplicationEvent
-
+  def to_s
+    super + " (Event)"
+  end
 end

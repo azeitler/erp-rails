@@ -5,8 +5,5 @@
 # Copyright (c) 2025 Andreas Zeitler
 # -----
 
-class PipedriveEvent < ApplicationEvent
-  def to_s
-    super + " (Event)"
-  end
+class Breakcold::Person < Breakcold::Lead
 end
