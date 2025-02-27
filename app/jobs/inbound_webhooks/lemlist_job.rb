@@ -6,11 +6,25 @@ module InboundWebhooks
       inbound_webhook.processing!
 
       # Process webhook
+      event = inbound_webhook.params['type']
+      inbound_webhook.update_column(:event, event)
+
+      Rails.configuration.event_store.publish(
+        LemlistEvent.new(data: {
+          webhook: inbound_webhook.id,
+          event: event,
+        }),
+        stream_name: 'lemlist'
+      )
+      # ProcessBreakcoldWebhookCommand.execute_for(inbound_webhook)
 
       inbound_webhook.processed!
-
-      # Or mark as failed and re-enqueue the job
-      # inbound_webhook.failed!
+    rescue StandardError => e
+      Rails.logger.error "#{self.class.name} for processing webhook failed: #{e}"
+      Bugsnag.add_metadata("Webhook Data", inbound_webhook.params)
+      Bugsnag.notify(e)
+      inbound_webhook.failed!
     end
+  end
   end
 end
