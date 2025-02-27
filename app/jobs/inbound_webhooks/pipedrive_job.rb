@@ -16,6 +16,7 @@ module InboundWebhooks
 
       Rails.configuration.event_store.publish(
         PipedriveEvent.new(data: {
+          webhook: inbound_webhook.id,
           event: event,
           id: @id
         }),

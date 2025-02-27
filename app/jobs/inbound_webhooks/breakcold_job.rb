@@ -10,6 +10,7 @@ module InboundWebhooks
 
       Rails.configuration.event_store.publish(
         BreakcoldEvent.new(data: {
+          webhook: inbound_webhook.id,
           event: event,
         }),
         stream_name: 'breakcold'

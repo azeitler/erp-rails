@@ -7,7 +7,7 @@
 
 class ProcessPipedriveWebhookCommand < PipedriveCommand
 
-  def self.execute_for_webhook(inbound_webhook)
+  def self.execute_for(inbound_webhook)
     ProcessPipedriveWebhookCommand.new(inbound_webhook.params).execute
   end
 
