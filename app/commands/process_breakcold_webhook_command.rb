@@ -14,8 +14,8 @@ class ProcessBreakcoldWebhookCommand < BreakcoldCommand
   end
 
   def initialize(data)
-    @event = meta['event']
-    @id = meta['payload']['id']
+    @event = data['event']
+    @id = data['payload']['id']
 
     super(data['payload'])
   end
