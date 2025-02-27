@@ -13,7 +13,7 @@ module InboundWebhooks
       @entity = meta['entity']
       @id = meta['entity_id']
       @event = "#{entity}.#{action}"
-      inbound_webhook.update_column(event: event)
+      inbound_webhook.update_column(:event, event)
 
       Rails.configuration.event_store.publish(
         PipedriveEvent.new(data: {

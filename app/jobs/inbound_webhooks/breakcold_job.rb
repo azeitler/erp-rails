@@ -7,7 +7,7 @@ module InboundWebhooks
 
       # Process webhook
       event = inbound_webhook.params['event']
-      inbound_webhook.update_column(event: event)
+      inbound_webhook.update_column(:event, event)
 
       Rails.configuration.event_store.publish(
         BreakcoldEvent.new(data: {
