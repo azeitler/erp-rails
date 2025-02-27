@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   # Public marketing homepage
   root to: "static#index"
 
+  post 'trigger_job', to: 'jobs#trigger'
+
   namespace :inbound_webhooks do
     resources :attio, controller: :attio, only: [:create]
     resources :easybill, controller: :easybill, only: [:create]

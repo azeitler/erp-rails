@@ -3,5 +3,22 @@
     %h1= t(".title")
     %p.mb-2 This is the homepage for logged in users.
     %p
-      You can customize this page in
-      %code app/views/dashboard/show.html.erb
+      %button{ id: "trigger-job-button", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" }
+        Import Pipedrive Fields
+
+
+:javascript
+  document.getElementById('trigger-job-button').addEventListener('click', function() {
+    fetch('/trigger_job', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+      body: JSON.stringify({ job_params: { /* your job parameters */ } })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.status);
+    });
+  });
