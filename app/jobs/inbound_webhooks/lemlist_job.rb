@@ -26,5 +26,4 @@ module InboundWebhooks
       inbound_webhook.failed!
     end
   end
-  end
 end
