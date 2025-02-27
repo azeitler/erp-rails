@@ -2,7 +2,7 @@ module InboundWebhooks
   class PipedriveJob < ApplicationJob
     queue_as :default
 
-    attr_reader :meta, :action, :event
+    attr_reader :meta, :action, :event, :entity
 
     def perform(inbound_webhook)
       inbound_webhook.processing!
