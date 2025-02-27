@@ -75,8 +75,8 @@ class BreakcoldClient < ImportClient
         imported += 1 if res == :imported
       end
       deleted = 0
-      deleted = prune_model(@leads.select{ |lead| lead.is_company }.map { |lead| lead['id'].to_s }, Breakcold::Company)
-      deleted += prune_model(@leads.select{ |lead| !lead.is_company }.map { |lead| lead['id'].to_s }, Breakcold::Person)
+      deleted = prune_model(@leads.select{ |lead| lead['is_company'] }.map { |lead| lead['id'].to_s }, Breakcold::Company)
+      deleted += prune_model(@leads.select{ |lead| !lead['is_company'] }.map { |lead| lead['id'].to_s }, Breakcold::Person)
       Breakcold::Lead.parse_all_and_save
       log "imported #{imported} leads, updated #{updated}, deleted #{deleted} leads out of #{@leads.count} leads"
     end
@@ -87,9 +87,9 @@ class BreakcoldClient < ImportClient
       log "import_lead: needs to be a OpenStruct" and return
     end
     lead_id = lead['id'].to_s
-    breakcold_lead, result = import_model_with_id(lead.is_company ? Breakcold::Company : Breakcold::Person, lead_id) do |breakcold_lead|
+    breakcold_lead, result = import_model_with_id(lead['is_company'] ? Breakcold::Company : Breakcold::Person, lead_id) do |breakcold_lead|
       breakcold_lead.properties = lead.to_h
-      breakcold_lead.type = lead.is_company ? "Breakcold::Company" : "Breakcold::Person"
+      breakcold_lead.type = lead['is_company'] ? "Breakcold::Company" : "Breakcold::Person"
       # puts "imported #{breakcold_lead.type} #{breakcold_lead.id} #{lead.id}"
     end
     breakcold_lead.parse_and_save
