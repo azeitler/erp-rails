@@ -5,5 +5,6 @@ Rails.configuration.to_prepare do
 
   # add subscribers here
   event_store.subscribe(LinkedinInviteAcceptedCommand.new, to: [LinkedinInviteAcceptedEvent])
+  event_store.subscribe(LinkEventToStreamCommand.new('lemlist'), to: [LinkedinInviteAcceptedEvent])
   # Rails.configuration.event_store.subscribe(ChangeEcoModeCommand.new, to: [Admin::StudioEcoModeChangedEvent])
 end

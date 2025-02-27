@@ -63,7 +63,7 @@ class ProcessLemlistWebhookCommand < LemlistCommand
         #   "labels": "Outreach; Personal",
         #   "emailTemplateName": "linkedinInvite"
         # }
-        event = event_store.publish(
+        event_store.publish(
           LinkedinInviteAcceptedEvent.new(data: {
             lead_id: payload['leadId'],
             lemlist_user_id: payload['sendUserId'],
@@ -77,7 +77,6 @@ class ProcessLemlistWebhookCommand < LemlistCommand
           }),
           stream_name: 'linkedin'
         )
-        event_store.link(event.event_id, stream_name: 'lemlist')
       else
         # raise StandardError.new("Webhook cannot be processed #{event} (unsupported action)")
         Rails.logger.warn("Webhook cannot be processed #{event} (unsupported action)")
