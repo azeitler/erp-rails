@@ -6,7 +6,17 @@
 # -----
 
 class PipedriveEvent < ApplicationEvent
-  def to_s
-    super + " (Event)"
+
+  def event
+    self.data[:event]
+  end
+
+  def id
+    self.data[:id]
+  end
+
+  def event_type
+    return "#{event} ##{id} (#{super})" unless event.blank?
+    super
   end
 end
