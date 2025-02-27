@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_27_144130) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_27_161156) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -308,6 +308,25 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_27_144130) do
     t.string "event"
   end
 
+  create_table "lemlist_leads", force: :cascade do |t|
+    t.string "identifier"
+    t.jsonb "properties"
+    t.string "title"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "linkedin_invites", force: :cascade do |t|
+    t.integer "from_persona_id"
+    t.string "person"
+    t.string "linkedin_url"
+    t.datetime "accepted_at"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "noticed_events", force: :cascade do |t|
     t.bigint "account_id"
     t.string "type"
@@ -445,6 +464,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_27_144130) do
     t.string "processor"
     t.string "event_type"
     t.jsonb "event"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "personas", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "linkedin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
