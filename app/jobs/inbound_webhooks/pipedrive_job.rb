@@ -6,6 +6,17 @@ module InboundWebhooks
       inbound_webhook.processing!
 
       # Process webhook
+      meta = inbound_webhook.params['meta']
+      action = meta['action']
+      entity = meta['entity']
+      event = "#{entity}.#{action}"
+
+      Rails.configuration.event_store.publish(
+        PipedriveEvent.new(data: {
+          event: event,
+        }),
+        stream_name: 'pipedrive'
+      )
 
       inbound_webhook.processed!
 

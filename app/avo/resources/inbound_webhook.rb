@@ -1,4 +1,5 @@
 class Avo::Resources::InboundWebhook < Avo::BaseResource
+  self.authorization_policy = ViewOnlyPolicy
   # self.includes = []
   # self.attachments = []
   # self.search = {
@@ -19,5 +20,13 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
     field :headers, as: :code, theme: 'dracula', language: 'json', format_using: -> { JSON.pretty_generate(value) }
 
     field :created_at, as: :date
+  end
+
+  def filters
+    filter Avo::Filters::WebhookControllerFilter
+  end
+
+  def actions
+    action Avo::Actions::ProcessWebhook
   end
 end

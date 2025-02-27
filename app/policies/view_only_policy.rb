@@ -22,6 +22,10 @@ class ViewOnlyPolicy < ApplicationPolicy
     false
   end
 
+  def act_on?
+    true
+  end
+
   def destroy?
     false
   end
