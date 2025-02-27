@@ -5,4 +5,8 @@ class PipedriveCrm::User < ApplicationRecord
   def parse
     self.email = properties['email']
   end
+
+  def to_s
+    "#{title} <#{email}>"
+  end
 end
