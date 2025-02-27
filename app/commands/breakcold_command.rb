@@ -6,9 +6,9 @@
 # -----
 
 # a command to be executed on an breakcold entity directly
-class BreakcoldCommand < ApplicationCommand
+class BreakcoldCommand < PayloadCommand
 
-  attr_reader :payload, :id
+  attr_reader :payload
 
   def client
     @client ||= BreakcoldClient.new
@@ -16,7 +16,7 @@ class BreakcoldCommand < ApplicationCommand
 
   # @param [Hash] payload: data of the pipedrive object (not wrapped into other fields)
   def initialize(payload)
-    @payload = payload
+    super(payload)
     @id = payload['id'] unless payload['id'].blank?
   end
 

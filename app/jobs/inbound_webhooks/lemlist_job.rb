@@ -8,15 +8,17 @@ module InboundWebhooks
       # Process webhook
       event = inbound_webhook.params['type']
       inbound_webhook.update_column(:event, event)
+      id = inbound_webhook.params['leadId']
 
       Rails.configuration.event_store.publish(
         LemlistEvent.new(data: {
           webhook: inbound_webhook.id,
           event: event,
+          id: id
         }),
         stream_name: 'lemlist'
       )
-      # ProcessBreakcoldWebhookCommand.execute_for(inbound_webhook)
+      ProcessLemlistWebhookCommand.execute_for(inbound_webhook)
 
       inbound_webhook.processed!
     rescue StandardError => e
