@@ -1,6 +1,13 @@
-# 🎉 Jumpstart Pro Rails
+# Vu3D ERP
 
-Welcome! To get started, clone the repository and push it to a new repository.
+Sammelt alle Daten aus Third-Party-Systemen und stellt Automatisierungen zur Verfügung.
+
+## Breakcold / Lemlist Integration
+
+- Einer Breakcold Liste kann eine Lemlist Kampagne zugeordnet werden
+
+
+# Jumpstart Pro Template
 
 ## Requirements
 
