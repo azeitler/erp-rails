@@ -33,6 +33,6 @@ class Breakcold::Lead < ApplicationRecord
       self.title = ((properties['first_name'] || "") + " " + (properties['last_name'] || "")).strip
     end
 
-    self.lists = Breakcold::List.where(id: list_ids)
+    self.lists = Breakcold::List.where(identifier: list_ids)
   end
 end

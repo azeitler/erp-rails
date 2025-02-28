@@ -43,4 +43,8 @@ class Avo::Resources::BreakcoldCompany < Avo::BaseResource
       end
     end
   end
+
+  def actions
+    action Avo::Actions::ImportBreakcoldLeads
+  end
 end

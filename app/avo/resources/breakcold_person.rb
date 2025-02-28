@@ -41,6 +41,10 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
       record.lists.count
     end
 
+    field :list_ids, as: :key_value, hide_on: [:index] do
+      record.list_ids
+    end
+
     field :lists, as: :has_and_belongs_to_many, use_resource: Avo::Resources::BreakcoldList, reloadable: true
 
     panel 'Import' do
@@ -48,5 +52,9 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
         JSON.pretty_generate(value.sort.to_h)
       end
     end
+  end
+
+  def actions
+    action Avo::Actions::ImportBreakcoldLeads
   end
 end
