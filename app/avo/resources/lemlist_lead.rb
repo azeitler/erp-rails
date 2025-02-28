@@ -38,4 +38,8 @@ class Avo::Resources::LemlistLead < Avo::BaseResource
       end
     end
   end
+
+  def actions
+    action Avo::Actions::ImportLemlist
+  end
 end

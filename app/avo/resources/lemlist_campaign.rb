@@ -33,5 +33,6 @@ class Avo::Resources::LemlistCampaign < Avo::BaseResource
 
   def actions
     action Avo::Actions::ImportLemlistCampaigns
+    action Avo::Actions::ImportLemlist
   end
 end
