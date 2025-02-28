@@ -29,16 +29,16 @@ class ImportClient < ApplicationClient
 
   def prune_model(ids,klass)
     ids ||= []
-    deletable = klass.where.not(identifier: ids)
+    deletable = klass.unscoped.where.not(identifier: ids)
 
-    uniq_ids = klass.pluck(:identifier).uniq
-    dupl_ids = uniq_ids.select{ |uniq_id| klass.where(identifier: uniq_id).count > 1 }
+    uniq_ids = klass.unscoped.pluck(:identifier).uniq
+    dupl_ids = uniq_ids.select{ |uniq_id| klass.unscoped.where(identifier: uniq_id).count > 1 }
 
-    dupls = klass.where(identifier: dupl_ids)
+    dupls = klass.unscoped.where(identifier: dupl_ids)
     dupls = dupls[1..dupls.count]||[]
     puts "found duplicated entries: #{dupls.map(&:identifier).join("\n")}" if dupls.any?
 
-    deletable = klass.where(id: (deletable + dupls).flatten.uniq.map(&:id))
+    deletable = klass.unscoped.where(id: (deletable + dupls).flatten.uniq.map(&:id))
 
     deleted = deletable.count
     deletable.destroy_all
@@ -46,14 +46,14 @@ class ImportClient < ApplicationClient
   end
 
   def prune_duplicates(klass)
-    uniq_ids = klass.pluck(:identifier).uniq
-    dupl_ids = uniq_ids.select{ |uniq_id| klass.where(identifier: uniq_id).count > 1 }
+    uniq_ids = klass.unscoped.pluck(:identifier).uniq
+    dupl_ids = uniq_ids.select{ |uniq_id| klass.unscoped.where(identifier: uniq_id).count > 1 }
 
-    dupls = klass.where(identifier: dupl_ids)
+    dupls = klass.unscoped.where(identifier: dupl_ids)
     dupls = dupls[1..dupls.count]||[]
     puts "found duplicated entries: #{dupls.map(&:identifier).join("\n")}" if dupls.any?
 
-    deletable = klass.where(id: dupls.flatten.uniq.map(&:id))
+    deletable = klass.unscoped.where(id: dupls.flatten.uniq.map(&:id))
 
     deleted = deletable.count
     deletable.destroy_all
@@ -61,7 +61,7 @@ class ImportClient < ApplicationClient
   end
 
   def import_model_with_id(klass,id)
-    entity = klass.find_by(identifier: id)
+    entity = klass.unscoped.find_by(identifier: id)
     entity = klass.new(identifier: id) if entity.nil?
     yield(entity)
     status_code = nil
