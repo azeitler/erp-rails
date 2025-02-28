@@ -37,7 +37,17 @@ class Breakcold::Lead < ApplicationRecord
     end
   end
 
-  def status
+  def statuses
+    properties['status']
+  end
+
+  def statuses_by_list
+    properties['status']&.map do |status|
+      [ status['id_list'], status['name'] ]
+    end.to_h
+  end
+
+  def statuses
     @status ||= begin
                   unless properties['status'].blank?
                     _status = properties['status']
@@ -61,7 +71,7 @@ class Breakcold::Lead < ApplicationRecord
   end
 
   def status_text
-    status&.join("\n")
+    statuses&.join("\n")
   end
 
   def avatar_url
@@ -78,9 +88,26 @@ class Breakcold::Lead < ApplicationRecord
     end
   end
 
+  def did_change_status_in_list(list,from,to)
+    puts "⭐️⭐️⭐️ Lead #{title} (#{identifier}) changed status in list #{list} from #{from} to #{to}"
+
+  end
+
   def parse
     self.properties = normalize_properties
     self.email = properties['email']
+    self.linkedin_url = properties['linkedin_url']
+
+    # old_statuses = self.status
+    # new_statuses = statuses_by_list
+    #
+    # new_statuses.each do |list_id, new_status|
+    #   old_status = old_statuses[list_id]
+    #   if !old_status.blank? && old_status != new_status
+    #     did_change_status_in_list(list_id, old_status, new_status)
+    #   end
+    # end
+    # self.status = new_statuses
 
     self.deleted = properties['is_deleted']
     self.deleted_at = DateTime.parse(properties['is_deleted_at']) if properties['is_deleted_at']

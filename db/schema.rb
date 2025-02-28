@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_28_104223) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_28_184810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -151,6 +151,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_104223) do
     t.string "type"
     t.boolean "deleted"
     t.datetime "deleted_at"
+    t.jsonb "status", default: {}
+    t.string "linkedin_url"
   end
 
   create_table "breakcold_leads_lists", id: false, force: :cascade do |t|
@@ -347,6 +349,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_104223) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "lemlist_campaign_id"
+    t.string "linkedin_url"
     t.index ["lemlist_campaign_id"], name: "index_lemlist_leads_on_lemlist_campaign_id"
   end
 

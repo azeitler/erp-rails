@@ -57,6 +57,8 @@ class Lemlist::Lead < ApplicationRecord
 
   def parse
     self.email = properties['email']
+    self.linkedin_url = properties['linkedin_url']
+
     self.title = name
     unless campaign_id.blank?
       self.campaign = Lemlist::Campaign.find_by_identifier(campaign_id)
