@@ -20,6 +20,33 @@ class Breakcold::Lead < ApplicationRecord
     end
   end
 
+  def status
+    @status ||= begin
+                  unless properties['status'].blank?
+                    _status = properties['status']
+                    _status.map do |status|
+                      if status['table'].blank?
+                        status_name = status['name']
+                        status_list_id = status['id_list']
+                      else
+                        status_name = status['table']['name']
+                        status_list_id = status['table']['id_list']
+                      end
+                      status_list = lists.find { |list| list.identifier == status_list_id }
+                      if status_list
+                        "#{status_list.title} -> #{status_name}"
+                      else
+                        "<unknown list> -> #{status_name}"
+                      end
+                    end
+                  end
+                end
+  end
+
+  def status_text
+    status&.join("\n")
+  end
+
   def avatar_url
     properties['avatar_url']
   end
