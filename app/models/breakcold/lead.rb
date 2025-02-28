@@ -75,6 +75,10 @@ class Breakcold::Lead < ApplicationRecord
     end
 
     self.lists = Breakcold::List.where(identifier: list_ids)
+
+    parse_created_at
+    parse_updated_at
+
     true
   end
 
@@ -98,9 +102,10 @@ class Breakcold::Lead < ApplicationRecord
       if value.is_a?(Array)
         properties[key] = value.map do |item|
           if item.is_a?(Hash) && item.keys.length == 1 && item['table']
-            normalize_hash(item['table'])
+            new_value = item['table']
+            new_value.is_a?(Hash) ? normalize_hash(new_value) : new_value
           else
-            normalize_hash(item)
+            item.is_a?(Hash) ? normalize_hash(item) : item
           end
         end
       end

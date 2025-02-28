@@ -119,10 +119,18 @@ module Helpers::Parsable
   end
 
   def parse_created_at(field='created_at')
-    date_str = properties[field]&.to_date
+    date_str = properties[field]&.to_datetime
     if date_str
       update_column(:created_at, date_str) if persisted?
-      self.created_at = date_str.to_date unless persisted?
+      self.created_at = date_str.to_datetime unless persisted?
+    end
+  end
+
+  def parse_updated_at(field='updated_at')
+    date_str = properties[field]&.to_datetime
+    if date_str
+      update_column(:updated_at, date_str) if persisted?
+      self.updated_at = date_str.to_datetime unless persisted?
     end
   end
 
