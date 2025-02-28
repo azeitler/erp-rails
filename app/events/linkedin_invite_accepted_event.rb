@@ -58,6 +58,7 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   #     recipient_picture: payload['leadPicture'],
   #     recipient_linkedin_url: payload['linkedinUrl'],
   #     recipient_occupation: payload['occupation'],
+  #     recipient_company: payload['leadCompanyName'],
   #   }),
   #   stream_name: 'linkedin'
   # )
@@ -71,9 +72,10 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   data_attribute :recipient_picture
   data_attribute :recipient_linkedin_url
   data_attribute :recipient_occupation
+  data_attribute :recipient_company
 
   def notification_message
-    "#{recipient_name} (#{recipient_occupation})"
+    "#{recipient_name} (#{recipient_occupation} bei #{recipient_company})"
   end
 
   def notification_intro
@@ -81,7 +83,7 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   end
 
   def event_label
-    "#{recipient_name} (#{recipient_occupation}) by #{sender_name} (#{super})"
+    "#{recipient_name} (#{recipient_occupation} bei #{recipient_company}) by #{sender_name} (#{super})"
   end
 
 end

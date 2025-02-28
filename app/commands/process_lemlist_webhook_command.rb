@@ -71,6 +71,7 @@ class ProcessLemlistWebhookCommand < LemlistCommand
             campaign_name: payload['campaignName'],
             sender_name: payload['sendUserName'],
             recipient_name: ((payload['leadFirstName']||'') + ' ' + (payload['leadLastName']||'')).strip,
+            recipient_company: payload['leadCompanyName'] || payload['companyName'],
             recipient_picture: payload['leadPicture'],
             recipient_linkedin_url: payload['linkedinUrl'],
             recipient_occupation: payload['occupation'],
