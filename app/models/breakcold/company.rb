@@ -1,9 +1,20 @@
-# Project: erp-rails
-# Created Date: 2025-02-27
-# Author: Andreas Zeitler me@azeitler.com
-# -----
-# Copyright (c) 2025 Andreas Zeitler
-# -----
+# == Schema Information
+#
+# Table name: breakcold_leads
+#
+#  id           :bigint           not null, primary key
+#  deleted      :boolean
+#  deleted_at   :datetime
+#  email        :string
+#  identifier   :string
+#  linkedin_url :string
+#  properties   :jsonb
+#  status       :jsonb
+#  title        :string
+#  type         :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
 
 class Breakcold::Company < Breakcold::Lead
 

@@ -3,11 +3,15 @@
 # Table name: notification_tokens
 #
 #  id         :bigint           not null, primary key
-#  user_id    :bigint
-#  token      :string           not null
 #  platform   :string           not null
+#  token      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :bigint
+#
+# Indexes
+#
+#  index_notification_tokens_on_user_id  (user_id)
 #
 class NotificationToken < ApplicationRecord
   # Tokens for sending push notifications to mobile devices

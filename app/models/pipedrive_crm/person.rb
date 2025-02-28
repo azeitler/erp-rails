@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: pipedrive_people
+#
+#  id         :bigint           not null, primary key
+#  email      :string
+#  identifier :string
+#  issues     :text
+#  properties :jsonb
+#  title      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class PipedriveCrm::Person < ApplicationRecord
   include Helpers::Parsable
   include Helpers::ObjectWithIssues

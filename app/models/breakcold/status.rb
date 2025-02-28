@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: breakcold_statuses
+#
+#  id         :bigint           not null, primary key
+#  deleted    :boolean
+#  deleted_at :datetime
+#  identifier :string
+#  properties :jsonb
+#  title      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class Breakcold::Status < ApplicationRecord
   include Helpers::Parsable
 

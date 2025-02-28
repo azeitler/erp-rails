@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: breakcold_tags
+#
+#  id         :bigint           not null, primary key
+#  identifier :string
+#  properties :jsonb
+#  title      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class Breakcold::Tag < ApplicationRecord
   include Helpers::Parsable
 

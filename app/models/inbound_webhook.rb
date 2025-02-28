@@ -3,15 +3,16 @@
 # Table name: inbound_webhooks
 #
 #  id              :bigint           not null, primary key
-#  status          :integer          default("pending"), not null
+#  action_name     :string
 #  body            :text
+#  controller_name :string
+#  event           :string
+#  headers         :jsonb
+#  ip_address      :string
+#  status          :integer          default("pending"), not null
+#  user_agent      :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  controller_name :string
-#  action_name     :string
-#  ip_address      :string
-#  user_agent      :string
-#  headers         :jsonb
 #
 class InboundWebhook < ApplicationRecord
   cattr_accessor :incinerate_after, default: 30.days

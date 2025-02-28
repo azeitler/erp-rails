@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: breakcold_leads
+#
+#  id           :bigint           not null, primary key
+#  deleted      :boolean
+#  deleted_at   :datetime
+#  email        :string
+#  identifier   :string
+#  linkedin_url :string
+#  properties   :jsonb
+#  status       :jsonb
+#  title        :string
+#  type         :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
 class Breakcold::Lead < ApplicationRecord
   include Helpers::Parsable
 

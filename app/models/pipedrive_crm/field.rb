@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: pipedrive_fields
+#
+#  id           :bigint           not null, primary key
+#  field_level  :string
+#  field_name   :string
+#  field_target :string
+#  field_type   :string
+#  identifier   :string
+#  issues       :text
+#  properties   :jsonb
+#  title        :string
+#  values       :jsonb
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
 class PipedriveCrm::Field < ApplicationRecord
   include Helpers::Parsable
   include Helpers::ObjectWithIssues
