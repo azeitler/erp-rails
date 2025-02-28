@@ -10,7 +10,7 @@ module InboundWebhooks
       inbound_webhook.update_column(:event, event)
       id = inbound_webhook.params['payload']['id']
 
-      Rails.configuration.event_store.publish(
+      event_store.publish(
         BreakcoldEvent.new(data: {
           webhook: inbound_webhook.id,
           event: event,

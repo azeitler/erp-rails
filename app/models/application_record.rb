@@ -32,4 +32,9 @@ class ApplicationRecord < ActiveRecord::Base
   def full_title
     title
   end
+
+  protected
+  def event_store
+    Rails.configuration.event_store
+  end
 end
