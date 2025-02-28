@@ -2,6 +2,7 @@ class Avo::Actions::ImportLemlist < Avo::BaseAction
   self.name = "Import Lemlist (everything)"
   self.standalone = true
   self.visible = -> { view == :index }
+  self.no_confirmation = true
 
   # def fields
   #   # Add Action fields here
