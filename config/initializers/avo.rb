@@ -123,6 +123,7 @@ Avo.configure do |config|
     # end
 
     resource :persona
+    resource :task
 
     group "Pipedrive", icon: "heroicons/outline/currency-dollar" do
       resource :pipedrive_crm_field, label: "Fields"
