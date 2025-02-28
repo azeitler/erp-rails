@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_28_184810) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_28_202602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -160,6 +160,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_184810) do
     t.bigint "breakcold_list_id", null: false
   end
 
+  create_table "breakcold_leads_statuses", id: false, force: :cascade do |t|
+    t.bigint "breakcold_lead_id", null: false
+    t.bigint "breakcold_status_id", null: false
+  end
+
   create_table "breakcold_lists", force: :cascade do |t|
     t.string "identifier"
     t.jsonb "properties"
@@ -180,6 +185,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_184810) do
     t.datetime "updated_at", null: false
     t.boolean "deleted"
     t.datetime "deleted_at"
+    t.bigint "breakcold_list_id"
+    t.integer "order"
+    t.index ["breakcold_list_id"], name: "index_breakcold_statuses_on_breakcold_list_id"
   end
 
   create_table "breakcold_tags", force: :cascade do |t|
@@ -594,6 +602,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_184810) do
     t.string "contact_url"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "job_class"
+    t.integer "status", default: 0, null: false
+    t.text "result"
+    t.string "log", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -645,6 +662,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_184810) do
   add_foreign_key "api_tokens", "users"
   add_foreign_key "breakcold_lead_activities", "breakcold_leads"
   add_foreign_key "breakcold_lists", "lemlist_campaigns"
+  add_foreign_key "breakcold_statuses", "breakcold_lists"
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"
   add_foreign_key "lemlist_campaigns", "personas"
   add_foreign_key "lemlist_leads", "lemlist_campaigns"

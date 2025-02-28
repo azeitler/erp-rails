@@ -15,12 +15,14 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-class Breakcold::Lead < ApplicationRecord
+class Breakcold::Lead < Breakcold::BaseRecord
   include Helpers::Parsable
 
   default_scope { where(deleted: false).order(updated_at: :desc) }
 
   has_and_belongs_to_many :lists, inverse_of: :leads, :class_name => 'Breakcold::List', :join_table => 'breakcold_leads_lists', foreign_key: 'breakcold_lead_id', association_foreign_key: 'breakcold_list_id'
+  has_and_belongs_to_many :statuses, inverse_of: :leads, :class_name => 'Breakcold::Status', :join_table => 'breakcold_leads_statuses', foreign_key: 'breakcold_lead_id', association_foreign_key: 'breakcold_status_id'
+
   has_many :activities, class_name: 'Breakcold::LeadActivity', foreign_key: 'breakcold_lead_id', dependent: :destroy, inverse_of: :lead
 
   def is_company
@@ -88,6 +90,12 @@ class Breakcold::Lead < ApplicationRecord
     end
   end
 
+  def status_ids
+    properties['status']&.map do |status|
+      status['id']
+    end
+  end
+
   def did_change_status_in_list(list,from,to)
     puts "⭐️⭐️⭐️ Lead #{title} (#{identifier}) changed status in list #{list} from #{from} to #{to}"
 
@@ -119,41 +127,11 @@ class Breakcold::Lead < ApplicationRecord
     end
 
     self.lists = Breakcold::List.where(identifier: list_ids)
+    self.statuses = Breakcold::Status.where(identifier: status_ids)
 
     parse_created_at
     parse_updated_at
 
     true
-  end
-
-  def normalize_properties
-    normalize_hash(self.properties)
-  end
-  def normalize_hash(properties)
-    # "lists": [
-    #   {
-    #     "table": {
-    #       "id": "db37974f-8e20-4161-a09f-5a57363ee66d",
-    #       "name": "Sales App (Vuframe) >200 MA",
-    #       "emoji": "office",
-    #       "order": 9
-    #     }
-    #   }
-    # ],
-    # the properties hash contains a number of arrays which in turn contain arrays of hashes which might only contain a single key 'table', in this case we want to remove the intermediate hash
-    # we want to check any array keys for a hash with a single key 'table' and replace the array with the value of the 'table' key, even nested ones
-    properties.each do |key, value|
-      if value.is_a?(Array)
-        properties[key] = value.map do |item|
-          if item.is_a?(Hash) && item.keys.length == 1 && item['table']
-            new_value = item['table']
-            new_value.is_a?(Hash) ? normalize_hash(new_value) : new_value
-          else
-            item.is_a?(Hash) ? normalize_hash(item) : item
-          end
-        end
-      end
-    end
-    properties
   end
 end

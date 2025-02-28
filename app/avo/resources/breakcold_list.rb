@@ -12,7 +12,17 @@ class Avo::Resources::BreakcoldList < Avo::BaseResource
   def fields
     # field :id, as: :id
     field :title, as: :text, link_to_record: true
-    field :identifier, as: :text
+    field :identifier, as: :text, hide_on: [:index]
+    field "Stages", as: :text do
+      record.statuses.count
+    end
+    field :statuses, as: :has_many, resource: Avo::Resources::BreakcoldStatus, hide_on: [:index]
+    field :deleted, as: :boolean, name: 'Exists?' do
+      !record.deleted
+    end
+
+
+    field :lemlist_campaign, as: :belongs_to, resource: Avo::Resources::LemlistCampaign, link_to_resource: true, searchable: false
 
     field 'People', as: :text do
       record.people.count
@@ -20,8 +30,6 @@ class Avo::Resources::BreakcoldList < Avo::BaseResource
     field 'Companies', as: :text do
       record.companies.count
     end
-
-    field :lemlist_campaign, as: :belongs_to, resource: Avo::Resources::LemlistCampaign, link_to_resource: true, searchable: false
 
     field :people, as: :has_and_belongs_to_many, use_resource: Avo::Resources::BreakcoldPerson, reloadable: true, link_to_resource: true
     field :companies, as: :has_and_belongs_to_many, use_resource: Avo::Resources::BreakcoldCompany, reloadable: true, link_to_resource: true

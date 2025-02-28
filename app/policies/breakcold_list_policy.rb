@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class BreakcoldListPolicy < ApplicationPolicy
+class BreakcoldListPolicy < ViewOnlyPolicy
   class Scope < Scope
     def resolve
       scope.all

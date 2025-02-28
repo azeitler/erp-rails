@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class LemlistCampaignPolicy < ApplicationPolicy
+class LemlistCampaignPolicy < ViewOnlyPolicy
   class Scope < Scope
     def resolve
       scope.all

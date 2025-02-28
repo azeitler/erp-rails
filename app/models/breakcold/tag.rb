@@ -9,7 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Breakcold::Tag < ApplicationRecord
+class Breakcold::Tag < Breakcold::BaseRecord
   include Helpers::Parsable
 
   def parse
