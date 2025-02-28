@@ -1,5 +1,5 @@
 !!!
-%html{:class => "#{class_names("h-full antialiased", "dark": current_user.dark_theme?)}", :lang => "#{I18n.locale}"}
+%html{:class => "#{class_names("h-full antialiased", "dark": current_user&.dark_theme?)}", :lang => "#{I18n.locale}"}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title
@@ -20,7 +20,7 @@
     %link{:href => "https://rsms.me/", :rel => "preconnect"}/
     %link{:href => "https://rsms.me/inter/inter.css", :rel => "stylesheet"}/
     = yield :head
-  %body.h-full.font-sans.antialiased.font-normal.leading-normal.bg-white.dark:bg-gray-900.dark:text-gray-50{"data-controller" => "theme", "data-theme-preference-value" => "#{current_user.theme}"}
+  %body.h-full.font-sans.antialiased.font-normal.leading-normal.bg-white.dark:bg-gray-900.dark:text-gray-50{"data-controller" => "theme", "data-theme-preference-value" => "#{current_user&.theme}"}
     .main.flex.flex-col
       = render "impersonation_banner"
       = render "flash"
