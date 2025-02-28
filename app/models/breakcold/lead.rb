@@ -13,6 +13,10 @@ class Breakcold::Lead < ApplicationRecord
     properties['tags']&.map { |tag| tag['table']['name'] }
   end
 
+  def avatar_url
+    properties['avatar_url']
+  end
+
   def list_ids
     properties['lists']&.map { |tag| tag['table']['id'] }
   end

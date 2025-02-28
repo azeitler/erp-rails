@@ -93,7 +93,7 @@ Avo.configure do |config|
 
   ## == Menus ==
   config.main_menu = -> {
-    group "ERP" do
+    group "ERP", collapsable: true, collapsed: true do
       link "Home", path: "/root"
       link "Admin", path: "/admin"
       link "Events", path: "/admin/events"
@@ -103,11 +103,11 @@ Avo.configure do |config|
       end
     end
 
-    section "Dashboards", icon: "dashboards" do
+    group "Dashboards", icon: "dashboards", collapsable: true, collapsed: true do
       all_dashboards
     end
 
-    section "Users", icon: "heroicons/outline/user-group" do
+    group "Users", icon: "heroicons/outline/user-group", collapsable: true, collapsed: true do
       # resource :announcement
       resource :user
       resource :account
@@ -124,7 +124,7 @@ Avo.configure do |config|
 
     resource :persona
 
-    section "Pipedrive", icon: "heroicons/outline/currency-dollar" do
+    group "Pipedrive", icon: "heroicons/outline/currency-dollar" do
       resource :pipedrive_crm_field, label: "Fields"
       resource :pipedrive_crm_deal, label: "Deals"
       resource :pipedrive_crm_person, label: "People"
@@ -132,7 +132,7 @@ Avo.configure do |config|
       resource :pipedrive_crm_user, label: "Users"
     end
 
-    section "Breakcold", icon: "heroicons/outline/currency-dollar" do
+    group "Breakcold", icon: "heroicons/outline/currency-dollar" do
       resource :breakcold_person, label: "People"
       resource :breakcold_company, label: "Companies"
       resource :breakcold_list, label: "Lists"
@@ -140,7 +140,12 @@ Avo.configure do |config|
       resource :breakcold_status, label: "Status"
     end
 
-    section "Integrations", icon: "heroicons/outline/puzzle" do
+    group "Lemlist", icon: "heroicons/outline/currency-dollar" do
+      resource :lemlist_campaign, label: "Campaigns"
+      resource :lemlist_lead, label: "Leads"
+    end
+
+    group "Integrations", icon: "heroicons/outline/puzzle" do
       resource :inbound_webhook
     end
 

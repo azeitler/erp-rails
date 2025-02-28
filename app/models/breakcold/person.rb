@@ -11,10 +11,6 @@ class Breakcold::Person < Breakcold::Lead
     properties['linkedin_url']
   end
 
-  def avatar_url
-    properties['avatar_url']
-  end
-
   def company
     properties['company']
   end

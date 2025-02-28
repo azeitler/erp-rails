@@ -2,6 +2,7 @@ class Avo::Resources::LinkedinInvite < Avo::BaseResource
   # self.includes = []
   # self.attachments = []
   self.model_class = ::Linkedin::Invite
+  self.authorization_policy = ViewOnlyPolicy
   # self.search = {
   #   query: -> { query.ransack(id_eq: params[:q], m: "or").result(distinct: false) }
   # }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_28_044313) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_28_085635) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -319,6 +319,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_044313) do
     t.string "event"
   end
 
+  create_table "lemlist_campaigns", force: :cascade do |t|
+    t.string "identifier"
+    t.jsonb "properties"
+    t.string "title"
+    t.bigint "persona_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["persona_id"], name: "index_lemlist_campaigns_on_persona_id"
+  end
+
   create_table "lemlist_leads", force: :cascade do |t|
     t.string "identifier"
     t.jsonb "properties"
@@ -326,6 +336,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_044313) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "lemlist_campaign_id"
+    t.index ["lemlist_campaign_id"], name: "index_lemlist_leads_on_lemlist_campaign_id"
   end
 
   create_table "linkedin_invites", force: :cascade do |t|
@@ -619,6 +631,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_044313) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"
+  add_foreign_key "lemlist_campaigns", "personas"
+  add_foreign_key "lemlist_leads", "lemlist_campaigns"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
