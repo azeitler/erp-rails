@@ -13,7 +13,7 @@ class Avo::Resources::PipedriveCrmUser < Avo::BaseResource
     field :title, as: :text
     field :email, as: :text
     field :properties, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
-      JSON.pretty_generate(value)
+      JSON.pretty_generate(value.sort.to_h)
     end
   end
 end

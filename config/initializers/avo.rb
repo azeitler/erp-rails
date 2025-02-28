@@ -1,12 +1,12 @@
 # For more information regarding these settings check out our docs https://docs.avohq.io
 Avo.configure do |config|
   ## == Routing ==
-  config.root_path = "/avo"
+  config.root_path = "/manage"
   # used only when you have custom `map` configuration in your config.ru
   # config.prefix_path = "/internal"
 
   # Where should the user be redirected when visting the `/avo` url
-  config.home_path = defined?(Avo::Pro) ? "/avo/dashboards/overview" : nil
+  config.home_path = defined?(Avo::Pro) ? "/manage/dashboards/overview" : nil
 
   ## == Licensing ==
   # Add your license key here for Pro or Advanced licenses
@@ -45,8 +45,8 @@ Avo.configure do |config|
   # config.model_resource_mapping = {}
   # config.default_view_type = :table
   config.per_page = 100
-  # config.per_page_steps = [12, 24, 48, 72]
-  # config.via_per_page = 8
+  config.per_page_steps = [100, 200, 300]
+  config.via_per_page = 100
   config.id_links_to_resource = true
   # config.cache_resources_on_index_view = true
   ## permanent enable or disable cache_resource_filters, default value is false
@@ -59,8 +59,8 @@ Avo.configure do |config|
   # config.timezone = 'UTC'
   # config.currency = 'USD'
   # config.hide_layout_when_printing = false
-  # config.full_width_container = false
-  # config.full_width_index_view = false
+  config.full_width_container = true
+  config.full_width_index_view = true
   # config.search_debounce = 300
   # config.view_component_path = "app/components"
   # config.display_license_request_timeout_error = true
@@ -70,29 +70,39 @@ Avo.configure do |config|
   # config.field_wrapper_layout = true
 
   ## == Branding ==
-  # config.branding = {
-  #   colors: {
-  #     background: "248 246 242",
-  #     100 => "#CEE7F8",
-  #     400 => "#399EE5",
-  #     500 => "#0886DE",
-  #     600 => "#066BB2",
-  #   },
-  #   chart_colors: ["#0B8AE2", "#34C683", "#2AB1EE", "#34C6A8"],
-  #   logo: "/avo-assets/logo.png",
-  #   logomark: "/avo-assets/logomark.png",
-  #   placeholder: "/avo-assets/placeholder.svg",
-  #   favicon: "/avo-assets/favicon.ico"
-  # }
+  config.branding = {
+    colors: {
+      background: "#f1f5f9",
+      100 => "#CEE7F8",
+      400 => "#399EE5",
+      500 => "#0886DE",
+      600 => "#066BB2",
+    },
+    chart_colors: ["#0B8AE2", "#34C683", "#2AB1EE", "#34C6A8"],
+    logo: "/logo.svg",
+    logomark: "/mark.svg",
+    placeholder: "/avo-assets/placeholder.svg",
+    favicon: "/favicon.ico"
+  }
 
   ## == Breadcrumbs ==
-  # config.display_breadcrumbs = true
-  # config.set_initial_breadcrumbs do
-  #   add_breadcrumb "Home", '/avo'
-  # end
+  config.display_breadcrumbs = true
+  config.set_initial_breadcrumbs do
+    add_breadcrumb "Home", '/manage'
+  end
 
   ## == Menus ==
   config.main_menu = -> {
+    group "ERP" do
+      link "Home", path: "/root"
+      link "Admin", path: "/admin"
+      link "Events", path: "/admin/events"
+      link "Jobs", path: "/admin/jobs"
+      if Rails.env.development?
+        link "Jumpstart Config", path: Avo::Current.view_context.main_app.jumpstart_path
+      end
+    end
+
     section "Dashboards", icon: "dashboards" do
       all_dashboards
     end
@@ -134,10 +144,6 @@ Avo.configure do |config|
       resource :inbound_webhook
     end
 
-    if Rails.env.development?
-      link "Jumpstart Config", path: Avo::Current.view_context.main_app.jumpstart_path
-    end
-    link "Admin", path: "/admin"
   }
   config.profile_menu = -> {
     link "Profile", path: "/avo/profile", icon: "user-circle"

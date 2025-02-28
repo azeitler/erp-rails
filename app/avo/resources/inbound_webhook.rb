@@ -18,7 +18,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
     field :user_agent, as: :text
     field :event, as: :text
 
-    field :headers, as: :code, theme: 'dracula', language: 'json', format_using: -> { JSON.pretty_generate(value) }
+    field :headers, as: :code, theme: 'dracula', language: 'json', format_using: -> { JSON.pretty_generate(value.sort.to_h) }
 
     field :created_at, as: :date
   end

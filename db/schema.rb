@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_27_164510) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_28_044313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -141,6 +141,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_27_164510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "type"
+    t.boolean "deleted"
+    t.datetime "deleted_at"
+  end
+
+  create_table "breakcold_leads_lists", id: false, force: :cascade do |t|
+    t.bigint "breakcold_lead_id", null: false
+    t.bigint "breakcold_list_id", null: false
   end
 
   create_table "breakcold_lists", force: :cascade do |t|
@@ -149,6 +156,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_27_164510) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted"
+    t.datetime "deleted_at"
   end
 
   create_table "breakcold_statuses", force: :cascade do |t|
@@ -157,6 +166,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_27_164510) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted"
+    t.datetime "deleted_at"
   end
 
   create_table "breakcold_tags", force: :cascade do |t|

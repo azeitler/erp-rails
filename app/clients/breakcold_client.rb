@@ -103,6 +103,7 @@ class BreakcoldClient < ImportClient
     breakcold_lead, result = import_model_with_id(lead['is_company'] ? Breakcold::Company : Breakcold::Person, lead_id) do |breakcold_lead|
       breakcold_lead.properties = lead.to_h
       breakcold_lead.type = lead['is_company'] ? "Breakcold::Company" : "Breakcold::Person"
+      breakcold_lead.created_at = DateTime.parse(lead['created_at']) if lead['created_at']
       # puts "imported #{breakcold_lead.type} #{breakcold_lead.id} #{lead.id}"
     end
     breakcold_lead.parse_and_save
@@ -139,6 +140,7 @@ class BreakcoldClient < ImportClient
     breakcold_list, result = import_model_with_id(Breakcold::List, list_id) do |breakcold_list|
       breakcold_list.properties = list.to_h
       breakcold_list.title = list['name']
+      breakcold_list.created_at = DateTime.parse(list['created_at']) if list['created_at']
       # puts "imported #{breakcold_list.type} #{breakcold_list.id} #{list.id}"
     end
     breakcold_list.parse_and_save
@@ -153,6 +155,10 @@ class BreakcoldClient < ImportClient
   def import_statuses_for_list(list_id)
     list_statuses = statuses_for_list(list_id)
     import_statuses(list_statuses)
+  end
+
+  def import_all_statuses
+    import_statuses(statuses)
   end
 
   def import_statuses(statuses)
@@ -179,6 +185,7 @@ class BreakcoldClient < ImportClient
     breakcold_status, result = import_model_with_id(Breakcold::Status, status_id) do |breakcold_status|
       breakcold_status.properties = status.to_h
       breakcold_status.title = status['name']
+      breakcold_status.created_at = DateTime.parse(status['created_at']) if status['created_at']
       # puts "imported #{breakcold_status.type} #{breakcold_status.id} #{status.id}"
     end
     breakcold_status.parse_and_save

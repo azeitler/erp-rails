@@ -18,7 +18,7 @@ class Avo::Resources::PipedriveCrmDeal < Avo::BaseResource
     field :close_date, as: :date_time
     field :year, as: :number
     field :properties, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
-      JSON.pretty_generate(value)
+      JSON.pretty_generate(value.sort.to_h)
     end
   end
 end

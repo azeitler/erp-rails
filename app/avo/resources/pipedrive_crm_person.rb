@@ -14,7 +14,7 @@ class Avo::Resources::PipedriveCrmPerson < Avo::BaseResource
     field :identifier, as: :text
     field :issues, as: :textarea
     field :properties, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
-      JSON.pretty_generate(value)
+      JSON.pretty_generate(value.sort.to_h)
     end
   end
 end

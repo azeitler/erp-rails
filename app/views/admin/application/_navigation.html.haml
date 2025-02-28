@@ -2,7 +2,7 @@
   = link_to "← Back to App", root_path, class: "navigation__link"
   = link_to "Jumpstart", jumpstart_path, class: "navigation__link" if Rails.env.development?
   = link_to "Good Job", "/admin/jobs", class: "navigation__link", target: :_blank
-  = link_to "Avo", "/avo", class: "navigation__link"
+  = link_to "Manage", "/manage", class: "navigation__link"
   = link_to "Events", "/admin/events", class: "navigation__link", target: :_blank
   = link_to "Sidekiq", admin_sidekiq_web_path, class: "navigation__link", target: :_blank if defined?(::Sidekiq)
   = link_to "Mission Control", "/admin/jobs", class: "navigation__link", target: :_blank if defined?(::MissionControl::Jobs::Engine)

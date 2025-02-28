@@ -6,5 +6,18 @@
 # -----
 
 class Breakcold::Company < Breakcold::Lead
+
+  def linkedin_url
+    properties['linkedin_company_url'] || properties['linkedin_url']
+  end
+
+  def avatar_url
+    properties['avatar_url']
+  end
+
+  def linkedin_type
+    return :profile if linkedin_url&.include?('linkedin.com')
+    :missing
+  end
 end
 

@@ -29,4 +29,23 @@ class ViewOnlyPolicy < ApplicationPolicy
   def destroy?
     false
   end
+
+  [:lists, :people, :companies].each do |method|
+    define_method "attach_#{method}?" do
+      false
+    end
+    define_method "detach_#{method}?" do
+      false
+    end
+    define_method "edit_#{method}?" do
+      false
+    end
+    define_method "create_#{method}?" do
+      false
+    end
+    define_method "destroy_#{method}?" do
+      false
+    end
+  end
+
 end

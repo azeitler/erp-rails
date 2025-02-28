@@ -1,13 +1,12 @@
-class Avo::Resources::BreakcoldPerson < Avo::BaseResource
+class Avo::Resources::BreakcoldLead < Avo::BaseResource
   # self.includes = []
   # self.attachments = []
-  self.model_class = ::Breakcold::Person
-  self.authorization_policy = ViewOnlyPolicy
+  self.model_class = ::Breakcold::Lead
   # self.search = {
   #   query: -> { query.ransack(id_eq: params[:q], m: "or").result(distinct: false) }
   # }
 
-  self.title = :title
+  self.link_to_child_resource = true
 
   def fields
     #field :id, as: :id

@@ -6,3 +6,7 @@
     max-height: 24px;
     width: auto;
 }
+
+.active {
+  @apply text-black font-black;
+}

@@ -54,6 +54,8 @@ Rails.application.routes.draw do
 
   # Public marketing homepage
   root to: "static#index"
+  get '/root', to: redirect('/')
+
 
   post 'trigger_job', to: 'jobs#trigger'
 
