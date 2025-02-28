@@ -1,16 +1,23 @@
 class Breakcold::Lead < ApplicationRecord
   include Helpers::Parsable
 
-  default_scope { where(deleted: false) }
+  default_scope { where(deleted: false).order(updated_at: :desc) }
 
   has_and_belongs_to_many :lists, inverse_of: :leads, :class_name => 'Breakcold::List', :join_table => 'breakcold_leads_lists', foreign_key: 'breakcold_lead_id', association_foreign_key: 'breakcold_list_id'
+  has_many :activities, class_name: 'Breakcold::LeadActivity', foreign_key: 'breakcold_lead_id', dependent: :destroy, inverse_of: :lead
 
   def is_company
     self.properties['is_company']
   end
 
   def tags
-    properties['tags']&.map { |tag| tag['table']['name'] }
+    properties['tags']&.map do |tag|
+      if tag['name']
+        tag['name']
+      elsif tag['table']
+        tag['table']['name']
+      end
+    end
   end
 
   def avatar_url
@@ -18,7 +25,13 @@ class Breakcold::Lead < ApplicationRecord
   end
 
   def list_ids
-    properties['lists']&.map { |tag| tag['table']['id'] }
+    properties['lists']&.map do |list|
+      if list['id']
+        list['id']
+      elsif list['table']
+        list['table']['id']
+      end
+    end
   end
 
   def parse

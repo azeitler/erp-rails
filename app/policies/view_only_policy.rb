@@ -30,7 +30,7 @@ class ViewOnlyPolicy < ApplicationPolicy
     false
   end
 
-  [:lists, :people, :companies].each do |method|
+  [:lists, :people, :companies, :activities, :lead, :activity].each do |method|
     define_method "attach_#{method}?" do
       false
     end

@@ -2,6 +2,7 @@ class Avo::Resources::BreakcoldLead < Avo::BaseResource
   # self.includes = []
   # self.attachments = []
   self.model_class = ::Breakcold::Lead
+  self.authorization_policy = ViewOnlyPolicy
   # self.search = {
   #   query: -> { query.ransack(id_eq: params[:q], m: "or").result(distinct: false) }
   # }

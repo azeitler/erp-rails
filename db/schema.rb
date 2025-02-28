@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_28_100412) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_28_104223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,6 +131,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_100412) do
     t.datetime "updated_at", null: false
     t.index ["token"], name: "index_api_tokens_on_token", unique: true
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
+  end
+
+  create_table "breakcold_lead_activities", force: :cascade do |t|
+    t.string "title"
+    t.bigint "breakcold_lead_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["breakcold_lead_id"], name: "index_breakcold_lead_activities_on_breakcold_lead_id"
   end
 
   create_table "breakcold_leads", force: :cascade do |t|
@@ -632,6 +640,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_28_100412) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "breakcold_lead_activities", "breakcold_leads"
   add_foreign_key "breakcold_lists", "lemlist_campaigns"
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"
   add_foreign_key "lemlist_campaigns", "personas"

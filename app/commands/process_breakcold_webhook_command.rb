@@ -22,7 +22,9 @@ class ProcessBreakcoldWebhookCommand < BreakcoldCommand
 
   def execute
     case event
-      when 'lead.status.update', 'lead.create', 'lead.update'
+      when 'lead.status.update'
+        # execute_command(CreateOrUpdateBreakcoldLeadCommand)
+      when 'lead.create', 'lead.update'
         execute_command(CreateOrUpdateBreakcoldLeadCommand)
       else
         # raise StandardError.new("Webhook cannot be processed #{event} (unsupported action)")

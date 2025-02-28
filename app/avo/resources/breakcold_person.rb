@@ -45,6 +45,8 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
       record.list_ids
     end
 
+    field :activities, as: :has_many, resource: Avo::Resources::BreakcoldLeadActivity, link_to_resource: false
+
     field :lists, as: :has_and_belongs_to_many, use_resource: Avo::Resources::BreakcoldList, reloadable: true
 
     panel 'Import' do
