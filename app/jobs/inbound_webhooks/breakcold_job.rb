@@ -19,15 +19,26 @@ module InboundWebhooks
       if event.starts_with?('lead.')
         lead = Breakcold::Lead.find_by(identifier: id)
         if lead
-          event_data[:current_lead_status] = lead.status
+          event_data[:lead_id] = lead.id
+          event_data[:lead_current_status] = lead.status
+        else
+          event_data[:lead_id] = 'not_found'
         end
       end
 
-      event_store.publish(
-        BreakcoldEvent.new(data: event_data),
-        stream_name: 'breakcold'
-      )
-      ProcessBreakcoldWebhookCommand.execute_for(inbound_webhook)
+      if event == 'lead.status.update'
+        event_store.publish(
+          BreakcoldStatusUpdateEvent.new(data: event_data),
+          stream_name: 'breakcold'
+        )
+      else
+        event_store.publish(
+          BreakcoldEvent.new(data: event_data),
+          stream_name: 'breakcold'
+        )
+        ProcessBreakcoldWebhookCommand.execute_for(inbound_webhook)
+      end
+
 
       inbound_webhook.processed!
     rescue StandardError => e

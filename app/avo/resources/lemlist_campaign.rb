@@ -17,8 +17,13 @@ class Avo::Resources::LemlistCampaign < Avo::BaseResource
       neutral: [:archived]
     }
     # field :id, as: :id
-    # field :identifier, as: :text
+    field :identifier, as: :text, hide_on: [:index]
     field :persona, as: :belongs_to, can_create: false
+
+    field 'View on Lemlist', as: :text, label: 'View', as_html: true do
+      "<a href='#{Lemlist.campaign_url(record.identifier, 'leads')}' target='_blank' class='rounded-xl px-4 py-1 bg-gray-700 text-white'>Lemlist ›</a>"
+    end
+
     field 'Leads', as: :text do
       record.leads.count
     end

@@ -7,6 +7,9 @@
 
 class BreakcoldEvent < ApplicationEvent
 
+  data_attribute :webhook
+  data_attribute :id
+
   def event
     self.data[:event]
   end

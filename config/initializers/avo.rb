@@ -146,6 +146,10 @@ Avo.configure do |config|
       resource :lemlist_lead, label: "Leads"
     end
 
+    group "LinkedIn", icon: "heroicons/outline/linkedin" do
+      resource :linkedin_invite, label: "Invites"
+    end
+
     group "Integrations", icon: "heroicons/outline/puzzle" do
       resource :inbound_webhook
     end

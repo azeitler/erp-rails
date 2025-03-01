@@ -27,6 +27,9 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
       } do
       record.linkedin_type
     end
+    field 'LinkedIn Url', as: :text, hide_on: [:index] do
+      "<a href='#{record.linkedin_url}' target='_blank'>#{record.linkedin_url}</a>".html_safe
+    end
     field :company, as: :text
     field :tags, as: :tags
 
@@ -35,9 +38,6 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
     # end
     # field :deleted_at, as: :date# , hide_on: [:index]
 
-    field 'LinkedIn Url', as: :text, hide_on: [:index] do
-      record.linkedin_url
-    end
     field 'Lists', as: :text do
       record.lists.count
     end

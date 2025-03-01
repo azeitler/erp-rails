@@ -25,6 +25,10 @@ class Breakcold::Lead < Breakcold::BaseRecord
 
   has_many :activities, class_name: 'Breakcold::LeadActivity', foreign_key: 'breakcold_lead_id', dependent: :destroy, inverse_of: :lead
 
+  def to_s
+    "[#{self.class.name} #{title} (#{identifier})]"
+  end
+
   def is_company
     self.properties['is_company']
   end

@@ -19,7 +19,10 @@
 class Breakcold::Person < Breakcold::Lead
 
   def linkedin_url
-    properties['linkedin_url']
+    url = properties['linkedin_url']
+    return nil if url.blank?
+    return url if url.include?('linkedin.com')
+    "https://www.linkedin.com/in/#{url}"
   end
 
   def company
