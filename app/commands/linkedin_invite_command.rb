@@ -6,8 +6,6 @@
 # -----
 
 class LinkedinInviteCommand < ApplicationCommand
-  self.abstract_class = true
-
   #  created_at      :datetime         not null
   #  updated_at      :datetime         not null
   #  linkedin_url    :string

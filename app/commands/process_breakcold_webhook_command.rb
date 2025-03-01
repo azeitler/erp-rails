@@ -23,7 +23,7 @@ class ProcessBreakcoldWebhookCommand < BreakcoldCommand
   def execute
     case event
       when 'lead.status.update'
-        # execute_command(CreateOrUpdateBreakcoldLeadCommand)
+        execute_command(CreateOrUpdateBreakcoldLeadCommand)
       when 'lead.create', 'lead.update'
         execute_command(CreateOrUpdateBreakcoldLeadCommand)
       else

@@ -13,6 +13,6 @@ class LinkedinInviteSentCommand < LinkedinInviteCommand
 
     # create the invite
     invite = find_or_create_invite(event.recipient_linkedin_url, event.sender_name, event.recipient_name)
-    invite.update(identifier: event.campaign_id, status: 'sent')
+    invite.update(identifier: event.campaign_id, status: 'sent', status_text: event.invite_text)
   end
 end
