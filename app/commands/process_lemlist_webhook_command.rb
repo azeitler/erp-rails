@@ -66,10 +66,32 @@ class ProcessLemlistWebhookCommand < LemlistCommand
         event_store.publish(
           LinkedinInviteAcceptedEvent.new(data: {
             lead_id: payload['leadId'],
+            lead_source: payload['leadSource'],
             lemlist_user_id: payload['sendUserId'],
             campaign_id: payload['campaignId'],
             campaign_name: payload['campaignName'],
             sender_name: payload['sendUserName'],
+            email: payload['email'],
+            invite_text: payload['text'],
+            recipient_name: ((payload['leadFirstName']||'') + ' ' + (payload['leadLastName']||'')).strip,
+            recipient_company: payload['leadCompanyName'] || payload['companyName'],
+            recipient_picture: payload['leadPicture'],
+            recipient_linkedin_url: payload['linkedinUrl'],
+            recipient_occupation: payload['occupation'],
+          }),
+          stream_name: 'linkedin'
+        )
+      when 'linkedinInviteDone'
+        event_store.publish(
+          LinkedinInviteSentEvent.new(data: {
+            lead_id: payload['leadId'],
+            lead_source: payload['leadSource'],
+            lemlist_user_id: payload['sendUserId'],
+            campaign_id: payload['campaignId'],
+            campaign_name: payload['campaignName'],
+            sender_name: payload['sendUserName'],
+            email: payload['email'],
+            invite_text: payload['text'],
             recipient_name: ((payload['leadFirstName']||'') + ' ' + (payload['leadLastName']||'')).strip,
             recipient_company: payload['leadCompanyName'] || payload['companyName'],
             recipient_picture: payload['leadPicture'],

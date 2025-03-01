@@ -33,6 +33,22 @@ class Breakcold::Lead < Breakcold::BaseRecord
     self.properties['is_company']
   end
 
+  def company_name
+    properties['company']
+  end
+
+  def first_name
+    properties['first_name']
+  end
+
+  def last_name
+    properties['last_name']
+  end
+
+  def company_position
+    properties['company_role']
+  end
+
   def tags
     properties['tags']&.map do |tag|
       if tag['name']

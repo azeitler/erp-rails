@@ -64,10 +64,13 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   # )
 
   data_attribute :lead_id
+  data_attribute :lead_source
   data_attribute :lemlist_user_id
   data_attribute :campaign_id
   data_attribute :campaign_name
   data_attribute :sender_name
+  data_attribute :email
+  data_attribute :invite_text
   data_attribute :recipient_name
   data_attribute :recipient_picture
   data_attribute :recipient_linkedin_url
@@ -79,7 +82,7 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   end
 
   def notification_intro
-    "hat die LinkedIn-Einladung von #{sender_name} angenommen!"
+    "LinkedIn-Einladung über #{sender_name} versendet!"
   end
 
   def event_label

@@ -25,6 +25,10 @@ class Breakcold::Person < Breakcold::Lead
     "https://www.linkedin.com/in/#{url}"
   end
 
+  def to_s
+    super
+  end
+
   def company
     properties['company']
   end

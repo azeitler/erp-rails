@@ -3,8 +3,12 @@ Rails.configuration.to_prepare do
   Rails.configuration.event_store = RailsEventStore::JSONClient.new
 
   # add subscribers here
-  Rails.configuration.event_store.subscribe(LinkEventToStreamCommand.new('lemlist'), to: [LinkedinInviteAcceptedEvent])
+  Rails.configuration.event_store.subscribe(LinkEventToStreamCommand.new('lemlist'), to: [LinkedinInviteAcceptedEvent, LinkedinInviteSentEvent])
   Rails.configuration.event_store.subscribe(LinkedinInviteAcceptedCommand.new, to: [LinkedinInviteAcceptedEvent])
+  Rails.configuration.event_store.subscribe(LinkedinInviteSentCommand.new, to: [LinkedinInviteSentEvent])
+
+  Rails.configuration.event_store.subscribe(AddLeadToLemlistCampaignCommand.new, to: [BreakcoldStatusUpdateEvent])
+
   # Rails.configuration.event_store.subscribe(to: [LinkedinInviteAcceptedEvent]) do |event|
   #   Rails.logger.info "🚨🚨🚨 LinkedinInviteAcceptedEvent: #{event.inspect}"
   # end

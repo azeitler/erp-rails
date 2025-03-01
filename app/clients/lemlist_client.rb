@@ -67,7 +67,36 @@ class LemlistClient < ImportClient
     raise Error, "Unable to load campaign"
   end
 
+  def add_breakcold_lead(campaign_id, lead)
+    # campaigns/:campaignId/leads
+    data = {
+      'linkedinUrl': lead.linkedin_url.strip,
+      'firstName': lead.first_name.strip,
+      'lastName': lead.last_name.strip,
+      # 'preferredContactMethod': 'linkedIn',
+      'leadSource': 'breakcold',
+      'leadId': lead.identifier,
+    }
+    data['companyName'] = lead.company.strip if lead.company.present?
+    data['jobTitle'] = lead.company_position.strip if lead.company_position.present?
 
+    puts "adding lead to campaign #{campaign_id}: #{data}"
+    lead_response = post("/campaigns/#{campaign_id}/leads", query: { 'findEmail': true, 'linkedinEnrichment': true  }, body: data.to_json, headers: { "Content-Type" => "application/json" }).parsed_body
+    puts "lead added to campaign #{campaign_id}: #{lead_response}"
+
+    import_lead(lead_response)
+
+    lead_response
+  rescue *NET_HTTP_ERRORS, ApplicationClient::InternalError => e
+    raise Error, "Unable to add lead to campaign: #{e.message}"
+  end
+
+  def add_variables_to_lead(lead_id, variables)
+    # leads/:leadId/variables
+    post("/leads/#{lead_id}/variables", body: variables.to_json, headers: { "Content-Type" => "application/json" }).parsed_body
+  rescue *NET_HTTP_ERRORS
+    raise Error, "Unable to add variable to lead"
+  end
 
   def import_campaign_with_id(campaign_id)
     _campaign = campaign(campaign_id)
