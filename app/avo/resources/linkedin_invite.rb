@@ -20,7 +20,7 @@ class Avo::Resources::LinkedinInvite < Avo::BaseResource
 
     panel 'Import' do
       field "Properties", as: :code, theme: 'dracula', language: 'json', format_using: ->  do
-        JSON.pretty_generate(record.properties.sort.to_h)
+        JSON.pretty_generate((record.properties || {}).sort.to_h)
       end
     end
   end
