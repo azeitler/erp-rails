@@ -23,6 +23,8 @@
 class Lemlist::Lead < ApplicationRecord
   include Helpers::Parsable
 
+  default_scope { order(updated_at: :desc) }
+
   belongs_to :campaign, class_name: 'Lemlist::Campaign', foreign_key: 'lemlist_campaign_id', optional: true
 
   def name
