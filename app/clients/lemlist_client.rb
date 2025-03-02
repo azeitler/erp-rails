@@ -67,7 +67,7 @@ class LemlistClient < ImportClient
     raise Error, "Unable to load campaign"
   end
 
-  def add_breakcold_lead(campaign_id, lead)
+  def add_breakcold_lead(campaign_id, list, lead)
     # campaigns/:campaignId/leads
     data = {
       'linkedinUrl': lead.linkedin_url.strip,
@@ -75,7 +75,8 @@ class LemlistClient < ImportClient
       'lastName': lead.last_name.strip,
       # 'preferredContactMethod': 'linkedIn',
       'leadSource': 'breakcold',
-      'leadId': lead.identifier,
+      'breakcoldLeadId': lead.identifier,
+      'breakcoldListId': list.identifier,
     }
     data['companyName'] = lead.company.strip if lead.company.present?
     data['jobTitle'] = lead.company_position.strip if lead.company_position.present?

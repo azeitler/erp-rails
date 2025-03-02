@@ -65,6 +65,8 @@ class ProcessLemlistWebhookCommand < LemlistCommand
         # }
         event_store.publish(
           LinkedinInviteAcceptedEvent.new(data: {
+            breakcold_lead_id: payload['breakcoldLeadId'],
+            breakcold_list_id: payload['breakcoldListId'],
             lead_id: payload['leadId'],
             lead_source: payload['leadSource'],
             lemlist_user_id: payload['sendUserId'],
@@ -84,6 +86,8 @@ class ProcessLemlistWebhookCommand < LemlistCommand
       when 'linkedinInviteDone'
         event_store.publish(
           LinkedinInviteSentEvent.new(data: {
+            breakcold_lead_id: payload['breakcoldLeadId'],
+            breakcold_list_id: payload['breakcoldListId'],
             lead_id: payload['leadId'],
             lead_source: payload['leadSource'],
             lemlist_user_id: payload['sendUserId'],

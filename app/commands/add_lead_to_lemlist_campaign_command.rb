@@ -64,7 +64,7 @@ class AddLeadToLemlistCampaignCommand < ApplicationCommand
 
     log "adding lead #{lead.title} (#{lead.identifier}) to campaign #{campaign.title} (Lemlist)"
     begin
-      lemlist_lead = client.add_breakcold_lead(campaign.identifier, lead)
+      lemlist_lead = client.add_breakcold_lead(campaign.identifier, list, lead)
 
       event_data = {
         breakcold_list: list.title,
