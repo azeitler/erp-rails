@@ -26,6 +26,14 @@ class ApplicationCommand
     Rails.logger.info "#{self} #{str}"
   end
 
+  def warn(str)
+    Rails.logger.warn "#{self} #{str}"
+  end
+
+  def error(str)
+    Rails.logger.error "#{self} #{str}"
+  end
+
   private
 
   def event_store

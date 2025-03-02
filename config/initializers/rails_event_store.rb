@@ -3,7 +3,7 @@ Rails.configuration.to_prepare do
   Rails.configuration.event_store = RailsEventStore::JSONClient.new
 
   # add subscribers here
-  Rails.configuration.event_store.subscribe(LinkEventToStreamCommand.new('lemlist'), to: [LinkedinInviteAcceptedEvent, LinkedinInviteSentEvent])
+  Rails.configuration.event_store.subscribe(LinkEventToStreamCommand.new('lemlist'), to: [LinkedinInviteAcceptedEvent, LinkedinInviteSentEvent, AddLeadToLemlistCampaignCommand])
   Rails.configuration.event_store.subscribe(LinkedinInviteAcceptedCommand.new, to: [LinkedinInviteAcceptedEvent])
   Rails.configuration.event_store.subscribe(LinkedinInviteSentCommand.new, to: [LinkedinInviteSentEvent])
 
