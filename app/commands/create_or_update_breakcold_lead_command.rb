@@ -14,6 +14,7 @@ class CreateOrUpdateBreakcoldLeadCommand < BreakcoldCommand
   def execute
     log "importing lead..."
     record, result = client.import_lead(payload)
+    log "importing lead... #{result} (#{record})"
     if record && (result == :imported || result == :updated)
       Rails.configuration.event_store.publish(
         RecordUpdatedEvent.new(data: {
