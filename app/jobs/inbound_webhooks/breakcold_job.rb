@@ -17,6 +17,16 @@ module InboundWebhooks
 
       # populate the event with the current lead status data
       if event.starts_with?('lead.')
+
+        lists = inbound_webhook.params['payload']['lists']
+        if lists
+          ids = lists.map { |list| list['id'] }
+          ids.each do |list_id|
+            CreateOrUpdateBreakcoldListCommand.new(list_id).execute
+          end
+        end
+
+        CreateOrUpdateBreakcoldLeadCommand.new(inbound_webhook.params).execute
         lead = Breakcold::Lead.find_by(identifier: id)
         if lead
           event_data[:lead_id] = lead.id
@@ -27,7 +37,6 @@ module InboundWebhooks
       end
 
       if event == 'lead.status.update'
-        CreateOrUpdateBreakcoldLeadCommand.new(inbound_webhook.params).execute
         event_store.publish(
           BreakcoldStatusUpdateEvent.new(data: event_data),
           stream_name: 'breakcold'
