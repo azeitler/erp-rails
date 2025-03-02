@@ -126,16 +126,7 @@ class Breakcold::Lead < Breakcold::BaseRecord
     self.email = properties['email']
     self.linkedin_url = properties['linkedin_url']
 
-    # old_statuses = self.status
-    # new_statuses = statuses_by_list
-    #
-    # new_statuses.each do |list_id, new_status|
-    #   old_status = old_statuses[list_id]
-    #   if !old_status.blank? && old_status != new_status
-    #     did_change_status_in_list(list_id, old_status, new_status)
-    #   end
-    # end
-    # self.status = new_statuses
+    self.status = statuses_by_list
 
     self.deleted = properties['is_deleted']
     self.deleted_at = DateTime.parse(properties['is_deleted_at']) if properties['is_deleted_at']

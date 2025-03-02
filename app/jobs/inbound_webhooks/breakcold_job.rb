@@ -17,7 +17,6 @@ module InboundWebhooks
 
       # populate the event with the current lead status data
       if event.starts_with?('lead.')
-
         lists = inbound_webhook.params['payload']['lists']
         if lists
           ids = lists.map { |list| list['id'] }
