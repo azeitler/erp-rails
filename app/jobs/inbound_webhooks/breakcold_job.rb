@@ -27,6 +27,7 @@ module InboundWebhooks
       end
 
       if event == 'lead.status.update'
+        CreateOrUpdateBreakcoldLeadCommand.new(inbound_webhook.params).execute
         event_store.publish(
           BreakcoldStatusUpdateEvent.new(data: event_data),
           stream_name: 'breakcold'
