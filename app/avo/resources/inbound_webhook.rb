@@ -5,6 +5,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
   # self.search = {
   #   query: -> { query.ransack(id_eq: params[:q], m: "or").result(distinct: false) }
   # }
+  self.title = :label
 
   def fields
     field :id, as: :id
@@ -12,7 +13,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
 
     field :body, as: :code, theme: 'dracula', language: 'json', format_using: -> { JSON.pretty_generate(JSON.parse(value || "[]")) }
 
-    field :controller_name, as: :text
+    field :label, as: :text, format_using: -> { record.label }
     field :action_name, as: :text
     field :ip_address, as: :text
     field :user_agent, as: :text
