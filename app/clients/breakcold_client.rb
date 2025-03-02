@@ -144,7 +144,7 @@ class BreakcoldClient < ImportClient
       # puts "imported #{breakcold_list.type} #{breakcold_list.id} #{list.id}"
     end
     breakcold_list.parse_and_save
-    result
+    [ breakcold_list, result ]
   end
 
   def statuses_for_list(list_id)
