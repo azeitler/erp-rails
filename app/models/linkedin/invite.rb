@@ -14,4 +14,5 @@
 #  from_persona_id :integer
 #
 class Linkedin::Invite < ApplicationRecord
+  belongs_to :from_persona, class_name: "Persona"
 end

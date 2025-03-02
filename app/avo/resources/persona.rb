@@ -10,5 +10,6 @@ class Avo::Resources::Persona < Avo::BaseResource
     field :name, as: :text
     field :email, as: :text
     field :linkedin, as: :text
+    field :alias, as: :text
   end
 end

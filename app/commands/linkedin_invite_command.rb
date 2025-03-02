@@ -15,8 +15,10 @@ class LinkedinInviteCommand < ApplicationCommand
   #  identifier      :string
   #  status          :string
   def find_or_create_invite(linkedin_url, sender_name, contact_name)
-    sender = Persona.find_or_create_by!(name: sender_name.strip)
-    invite = Invite.find_or_create_by!(linkedin_url: linkedin_url.strip, from_persona_id: sender.id)
+    # find where alias contains sender_name
+    sender = Persona.where("alias LIKE ?", "%#{sender_name.strip}%").first
+    sender = Persona.find_or_create_by!(name: sender_name.strip) unless sender.present?
+    invite = Linkedin::Invite.find_or_create_by!(linkedin_url: linkedin_url.strip, from_persona_id: sender.id)
     invite.update(person: contact_name.strip)
     invite
   end

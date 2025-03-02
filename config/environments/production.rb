@@ -59,6 +59,11 @@ Rails.application.configure do
   # config.logger = ActiveSupport::Logger.new($stdout)
   #   .tap { |logger| logger.formatter = ::Logger::Formatter.new }
   #   .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+
+  SemanticLogger.default_level = :info
+  config.log_level = :info
+  config.action_view.logger = nil
+
   $stdout.sync = true
   config.rails_semantic_logger.add_file_appender = false
   config.semantic_logger.add_appender(io: $stdout, formatter: config.rails_semantic_logger.format)

@@ -3,6 +3,7 @@
 # Table name: personas
 #
 #  id         :bigint           not null, primary key
+#  alias      :string
 #  email      :string
 #  linkedin   :string
 #  name       :string
