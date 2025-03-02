@@ -10,8 +10,8 @@ class Avo::Resources::LinkedinInvite < Avo::BaseResource
   self.title = :person
 
   def fields
-    field :id, as: :id
-    field :person, as: :text
+    # field :id, as: :id
+    field :person, as: :text, link_to_record: true
     field :linkedin_url, as: :text
     field :status, as: :badge, options: { success: ["accepted"], warning: ["sent"] }
     field :from_persona, as: :belongs_to, resource: Avo::Resources::Persona, link_to_resource: true

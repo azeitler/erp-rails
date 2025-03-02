@@ -16,5 +16,5 @@
 class Linkedin::Invite < ApplicationRecord
   default_scope { order(updated_at: :desc) }
 
-  belongs_to :from_persona, class_name: "Persona"
+  belongs_to :from_persona, class_name: "Persona", optional: true
 end
