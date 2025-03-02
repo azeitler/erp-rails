@@ -101,7 +101,7 @@ class BreakcoldClient < ImportClient
     end
     lead_id = lead['id'].to_s
     breakcold_lead, result = import_model_with_id(lead['is_company'] ? Breakcold::Company : Breakcold::Person, lead_id) do |breakcold_lead|
-      breakcold_lead.properties = lead.to_h
+      breakcold_lead.properties = (breakcold_lead.properties || {}).merge(lead.to_h)
       breakcold_lead.type = lead['is_company'] ? "Breakcold::Company" : "Breakcold::Person"
       breakcold_lead.created_at = DateTime.parse(lead['created_at']) if lead['created_at']
       # puts "imported #{breakcold_lead.type} #{breakcold_lead.id} #{lead.id}"
