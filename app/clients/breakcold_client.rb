@@ -71,6 +71,21 @@ class BreakcoldClient < ImportClient
     raise Error, "Unable to load lists"
   end
 
+  def update_lead(lead_id, old_status_id, new_status_id)
+    patch("/leads/#{lead_id}", body: {
+      data: {
+        status_disconnect: [
+          old_status_id
+        ],
+        status_connect: [
+          new_status_id
+        ]
+      }
+    }).parsed_body
+  rescue *NET_HTTP_ERRORS
+    raise Error, "Unable to update lead"
+  end
+
   # def attributes(object)
   #   get("/attributes").parsed_body
   # rescue *NET_HTTP_ERRORS
