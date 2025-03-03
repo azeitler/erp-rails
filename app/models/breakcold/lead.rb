@@ -59,7 +59,7 @@ class Breakcold::Lead < Breakcold::BaseRecord
     end
   end
 
-  def statuses
+  def status_definitions
     properties['status']
   end
 
@@ -69,7 +69,7 @@ class Breakcold::Lead < Breakcold::BaseRecord
     end.to_h
   end
 
-  def statuses
+  def statuses_descriptions
     @status ||= begin
                   unless properties['status'].blank?
                     _status = properties['status']
@@ -93,7 +93,7 @@ class Breakcold::Lead < Breakcold::BaseRecord
   end
 
   def status_text
-    statuses&.join("\n")
+    statuses_descriptions&.join("\n")
   end
 
   def avatar_url
@@ -113,6 +113,12 @@ class Breakcold::Lead < Breakcold::BaseRecord
   def status_ids
     properties['status']&.map do |status|
       status['id']
+    end
+  end
+
+  def status_for_list(list_id)
+    properties['status']&.find do |status|
+      status['id_list'] == list_id
     end
   end
 
