@@ -11,12 +11,12 @@ class Avo::Resources::BreakcoldList < Avo::BaseResource
 
   def fields
     # field :id, as: :id
-    field :title, as: :text, link_to_record: true
-    field :identifier, as: :text, hide_on: [:index]
+    field :title, as: :text, link_to_record: true, readonly: true
+    field :identifier, as: :text, hide_on: [:index], readonly: true
     field "Stages", as: :text do
       record.statuses.count
     end
-    field :deleted, as: :boolean, name: 'Exists?' do
+    field :deleted, as: :boolean, name: 'Exists?', readonly: true do
       !record.deleted
     end
 
@@ -40,7 +40,7 @@ class Avo::Resources::BreakcoldList < Avo::BaseResource
     field :statuses, name: 'Stages', as: :has_many, resource: Avo::Resources::BreakcoldStatus, hide_on: [:index]
 
     panel 'Import' do
-      field "Properties", as: :code, theme: 'dracula', language: 'json', format_using: ->  do
+      field "Properties", as: :code, theme: 'dracula', language: 'json', hide_on:[:new,:edit], format_using: ->  do
         JSON.pretty_generate(record.properties.sort.to_h)
       end
     end

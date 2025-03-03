@@ -11,7 +11,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
     field :id, as: :id
     field :status, as: :select, enum: ::InboundWebhook.statuses
 
-    field :body, as: :code, theme: 'dracula', language: 'json', format_using: -> { JSON.pretty_generate(JSON.parse(value || "[]")) }
+    field :body, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: -> { JSON.pretty_generate(JSON.parse(value || "[]")) }
 
     field :label, as: :text, format_using: -> { record.label }
     field :action_name, as: :text
@@ -19,7 +19,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
     field :user_agent, as: :text
     field :event, as: :text
 
-    field :headers, as: :code, theme: 'dracula', language: 'json', format_using: -> { JSON.pretty_generate(value.sort.to_h) }
+    field :headers, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: -> { JSON.pretty_generate(value.sort.to_h) }
 
     field :created_at, as: :date
   end

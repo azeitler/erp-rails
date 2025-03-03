@@ -15,10 +15,10 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
     field :avatar, as: :external_image do
       record.avatar_url
     end
-    field :title, as: :text, link_to_record: true
-    field :identifier, as: :text, hide_on: [:index]
+    field :title, as: :text, link_to_record: true, readonly: true
+    field :identifier, as: :text, hide_on: [:index], readonly: true
     field :status_text, as: :text
-    field :email, as: :text
+    field :email, as: :text, readonly: true
     field 'LinkedIn',
       as: :badge,
       options: {
@@ -52,7 +52,7 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
     field :lists, as: :has_and_belongs_to_many, use_resource: Avo::Resources::BreakcoldList, reloadable: true
 
     panel 'Import' do
-      field :properties, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
+      field :properties, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
         JSON.pretty_generate(value.sort.to_h)
       end
     end

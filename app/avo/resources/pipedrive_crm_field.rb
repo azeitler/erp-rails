@@ -31,11 +31,11 @@ class Avo::Resources::PipedriveCrmField < Avo::BaseResource
     field :field_options, as: :text, hide_on:[:index]
     field :user, as: :belongs_to
 
-    field :properties, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
+    field :properties, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
       JSON.pretty_generate(value.sort.to_h)
     end
 
-    field :values, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
+    field :values, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
       JSON.pretty_generate(value.sort.to_h)
     end
   end

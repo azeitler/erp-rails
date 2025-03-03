@@ -22,10 +22,10 @@ class Avo::Resources::Event < Avo::BaseResource
     # field :data, as: :code
     # field :metadata, as: :code
     field :created_at, as: :date_time
-    field :data, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
+    field :data, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
       JSON.pretty_generate(value.sort.to_h)
     end
-    field :metadata, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
+    field :metadata, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
       JSON.pretty_generate(value.sort.to_h)
     end
   end

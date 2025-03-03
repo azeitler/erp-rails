@@ -30,7 +30,7 @@ class Avo::Resources::LemlistCampaign < Avo::BaseResource
     field :leads, as: :has_many
 
     panel 'Import' do
-      field :properties, as: :code, theme: 'dracula', language: 'json', format_using: ->  do
+      field :properties, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
         JSON.pretty_generate(value.sort.to_h)
       end
     end
