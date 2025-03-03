@@ -8,6 +8,7 @@
 #  identifier        :string
 #  order             :integer
 #  properties        :jsonb
+#  role              :string
 #  title             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null

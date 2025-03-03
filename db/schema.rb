@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_02_002118) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_03_074521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -187,6 +187,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_02_002118) do
     t.datetime "deleted_at"
     t.bigint "breakcold_list_id"
     t.integer "order"
+    t.string "role"
     t.index ["breakcold_list_id"], name: "index_breakcold_statuses_on_breakcold_list_id"
   end
 

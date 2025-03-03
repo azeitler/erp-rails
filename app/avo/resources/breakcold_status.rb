@@ -12,6 +12,13 @@ class Avo::Resources::BreakcoldStatus < Avo::BaseResource
     # field :id, as: :id
     field :title, as: :text, link_to_record: true
     field :instructions, as: :text
+    field :role, name:'LinkedIn Role', as: :select, options: {
+      'Invite accepted': :invite_accepted,
+      'Invite rejected': :invited_rejected,
+      'Invite sent': :invite_sent,
+      'Message sent': :message_sent,
+      'Conversation (replied)': :conversation
+    }, display_with_value: true, placeholder: 'Choose the type of the container.'
     field :color, as: :text, as_html: true do |&args|
       "<div class='flex items-center'><div class='rounded-full' style='padding: 2px 10px; color: #{record.text_color}; background-color: #{record.color};'>#{record.color.upcase}</div></div>"
     end
