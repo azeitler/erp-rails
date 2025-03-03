@@ -34,7 +34,8 @@ class LinkedinInviteSentCommand < LinkedinInviteCommand
 
     # get the id of the new status
     new_status_name = 'LI invite sent'
-    new_status = Breakcold::Status.find_by(name: new_status_name, breakcold_list_id: list.id)
+    # FIXME: use role!
+    new_status = Breakcold::Status.find_by(title: new_status_name, breakcold_list_id: list.id)
     new_status_id = new_status.identifier
 
     client.update_lead(lead.identifier, current_status_id, new_status_id)
