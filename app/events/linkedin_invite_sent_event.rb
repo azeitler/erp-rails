@@ -19,6 +19,8 @@ class LinkedinInviteSentEvent < ApplicationEvent
   data_attribute :recipient_linkedin_url
   data_attribute :recipient_occupation
   data_attribute :recipient_company
+  data_attribute :breakcold_lead_id
+  data_attribute :breakcold_list_id
 
   def notification_message
     "#{recipient_name} (#{recipient_occupation} bei #{recipient_company})"
