@@ -11,7 +11,7 @@ class ApplicationEvent < RailsEventStore::Event
   def self.data_attribute(key, default = nil)
     attr_reader key
     define_method(key) do
-      data[key] || default
+      data[key.to_s] || default
     end
   end
 

@@ -7,11 +7,11 @@
 
 class RecordUpdatedEvent < ApplicationEvent
   def record_type
-    self.data[:record_type]
+    self.data['record_type']
   end
 
   def record_id
-    self.data[:record_id]
+    self.data['record_id']
   end
 
   def event_label

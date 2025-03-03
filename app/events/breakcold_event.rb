@@ -11,7 +11,7 @@ class BreakcoldEvent < ApplicationEvent
   data_attribute :id
 
   def event
-    self.data[:event]
+    self.data['event']
   end
 
   def event_label

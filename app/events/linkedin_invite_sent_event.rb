@@ -31,7 +31,8 @@ class LinkedinInviteSentEvent < ApplicationEvent
   end
 
   def event_label
-    "#{recipient_name} (#{recipient_occupation} bei #{recipient_company}) by #{sender_name} (#{super})"
+    # return self.inspect
+    "#{self.recipient_name} (#{recipient_occupation} bei #{recipient_company}) by #{sender_name} (#{super})"
   end
 
 end

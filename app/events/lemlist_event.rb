@@ -8,11 +8,11 @@
 class LemlistEvent < ApplicationEvent
 
   def event
-    self.data[:event]
+    self.data['event']
   end
 
   def id
-    self.data[:id]
+    self.data['id']
   end
 
   def event_label
