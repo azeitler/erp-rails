@@ -16,4 +16,8 @@ class Avo::Resources::PipedriveCrmUser < Avo::BaseResource
       JSON.pretty_generate(value.sort.to_h)
     end
   end
+
+  def actions
+    action Avo::Actions::ImportPipedriveUsers
+  end
 end

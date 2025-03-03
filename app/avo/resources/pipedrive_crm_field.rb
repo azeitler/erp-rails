@@ -45,4 +45,8 @@ class Avo::Resources::PipedriveCrmField < Avo::BaseResource
     filter Avo::Filters::PipedriveFieldTypeFilter
     filter Avo::Filters::PipedriveFieldTargetFilter
   end
+
+  def actions
+    action Avo::Actions::ImportPipedriveFields
+  end
 end
