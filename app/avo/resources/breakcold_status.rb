@@ -18,7 +18,7 @@ class Avo::Resources::BreakcoldStatus < Avo::BaseResource
       'Invite rejected': :invite_rejected,
       'Invite sent': :invite_sent,
       'Message sent': :message_sent,
-      'Conversation (replied)': :conversation
+      'Reply received': :reply_received
     }, include_blank: true, display_value: true, placeholder: 'Choose which special role this stage has for LinkedIn handling'
 
     field :color, as: :text, hide_on:[:new,:edit], readonly: true, as_html: true do |&args|
