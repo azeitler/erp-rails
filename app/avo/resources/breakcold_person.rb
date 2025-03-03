@@ -16,6 +16,7 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
       record.avatar_url
     end
     field :title, as: :text, link_to_record: true
+    field :identifier, as: :text, hide_on: [:index]
     field :status_text, as: :text
     field :email, as: :text
     field 'LinkedIn',
