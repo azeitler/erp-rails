@@ -93,7 +93,7 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   end
 
   def notification_intro
-    "LinkedIn-Einladung über #{self.sender_name} versendet!"
+    "hat die LinkedIn-Einladung von #{sender_name} angenommen!"
   end
 
   def event_label

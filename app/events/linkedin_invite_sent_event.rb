@@ -22,17 +22,26 @@ class LinkedinInviteSentEvent < ApplicationEvent
   data_attribute :breakcold_lead_id
   data_attribute :breakcold_list_id
 
+  def company_or_fallback
+    return self.recipient_company unless self.recipient_company.blank?
+    unless self.email.blank?
+      domain = self.email.split('@').last
+      return domain unless domain.blank?
+    end
+    "<Firma unbekannt>"
+  end
+
   def notification_message
-    "#{recipient_name} (#{recipient_occupation} bei #{recipient_company})"
+    "#{self.recipient_name} (#{self.recipient_occupation} bei #{self.recipient_company})"
   end
 
   def notification_intro
-    "hat die LinkedIn-Einladung von #{sender_name} angenommen!"
+    "LinkedIn-Einladung über #{self.sender_name} versendet!"
   end
 
   def event_label
     # return self.inspect
-    "#{self.recipient_name} (#{recipient_occupation} bei #{recipient_company}) by #{sender_name} (#{super})"
+    "#{self.recipient_name} (#{self.recipient_occupation} bei #{self.company_or_fallback}) by #{self.sender_name} (#{super})"
   end
 
 end
