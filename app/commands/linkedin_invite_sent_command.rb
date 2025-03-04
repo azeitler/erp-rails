@@ -31,14 +31,19 @@ class LinkedinInviteSentCommand < LinkedinInviteCommand
 
     list_id = event.breakcold_list_id
     list = Breakcold::List.find_by(identifier: list_id)
+    raise "list with ID not found '#{list_id}'" if list.nil?
 
     lead = Breakcold::Person.find_by(identifier: event.breakcold_lead_id)
     lead = Breakcold::Person.find_by(linkedin_url: event.recipient_linkedin_url) if lead.nil?
+    raise "lead with ID not found '#{event.breakcold_lead_id}'" if lead.nil?
 
     client = BreakcoldClient.new
 
     # lets get the current status
     current_status = lead.status_for_list(list_id)
+    if current_status.blank?
+      raise "lead '#{lead.title}' has no status for list '#{list.title}' (#{list_id})"
+    end
     current_status_id = current_status['id']
 
     # get the id of the new status
