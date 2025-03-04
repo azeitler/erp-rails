@@ -6,14 +6,8 @@
 # -----
 
 class PipedriveEvent < ApplicationEvent
-
-  def event
-    self.data['event']
-  end
-
-  def id
-    self.data['id']
-  end
+  data_attribute :event
+  data_attribute :id
 
   def event_label
     return "#{event} ##{id} (#{super})" unless event.blank?

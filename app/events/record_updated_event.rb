@@ -6,13 +6,8 @@
 # -----
 
 class RecordUpdatedEvent < ApplicationEvent
-  def record_type
-    self.data['record_type']
-  end
-
-  def record_id
-    self.data['record_id']
-  end
+  data_attribute :record_type
+  data_attribute :record_id
 
   def event_label
     return "#{record_type} ##{record_id} (#{super})" unless record_type.blank?

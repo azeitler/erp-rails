@@ -9,10 +9,7 @@ class BreakcoldEvent < ApplicationEvent
 
   data_attribute :webhook
   data_attribute :id
-
-  def event
-    self.data['event']
-  end
+  data_attribute :event
 
   def event_label
     return "#{event} (#{super})" unless event.blank?
