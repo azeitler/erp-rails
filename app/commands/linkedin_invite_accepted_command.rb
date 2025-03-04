@@ -7,6 +7,15 @@
 
 class LinkedinInviteAcceptedCommand < LinkedinInviteCommand
 
+  def validate!
+    @errors << "event.sender_name is missing" if event.sender_name.blank?
+    @errors << "event.recipient_linkedin_url is missing" if event.recipient_linkedin_url.blank?
+    @errors << "event.recipient_name is missing" if event.recipient_name.blank?
+    @errors << "event.breakcold_lead_id is missing" if event.breakcold_lead_id.blank?
+    @errors << "event.breakcold_list_id is missing" if event.breakcold_list_id.blank?
+    super
+  end
+
   def execute
     Rails.logger.info "LinkedinInviteAcceptedCommand: execute #{event.inspect}"
     raise 'No event data' unless event

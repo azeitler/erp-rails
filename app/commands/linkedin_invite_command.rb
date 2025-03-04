@@ -6,6 +6,13 @@
 # -----
 
 class LinkedinInviteCommand < ApplicationCommand
+
+  def validate!
+    @errors ||= []
+    raise "Validation failed: " + @errors.join(", ") if @errors.any?
+  end
+
+
   #  created_at      :datetime         not null
   #  updated_at      :datetime         not null
   #  linkedin_url    :string
