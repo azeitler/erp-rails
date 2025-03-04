@@ -25,5 +25,19 @@ class LinkedinInviteAcceptedCommand < LinkedinInviteCommand
     # create the invite
     invite = find_or_create_invite(event.recipient_linkedin_url, event.sender_name, event.recipient_name)
     invite.update(accepted_at: DateTime.now, status: 'accepted', status_text: event.invite_text, properties: event.data)
+
+    client = BreakcoldClient.new
+    begin
+      response = client.track_lead(event.breakcold_lead_id)
+      Rails.configuration.event_store.publish(
+        BreakcoldLeadTrackedEvent.new(data: {
+          lead_id: event.breakcold_lead_id,
+        }),
+        stream_name: 'breakcold',
+      )
+    rescue StandardError => e
+      Rails.logger.error("failed to track lead: #{e}", { command: self.inspect })
+      Bugsnag.notify(e)
+    end
   end
 end

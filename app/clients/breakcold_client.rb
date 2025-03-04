@@ -86,6 +86,26 @@ class BreakcoldClient < ImportClient
     raise Error, "Unable to update lead"
   end
 
+  def track_lead(lead_id)
+    patch("/leads/#{lead_id}/track", body: {
+      data: {
+        remove_tracking: false
+      }
+    }).parsed_body
+  rescue *NET_HTTP_ERRORS
+    raise Error, "Unable to update lead"
+  end
+
+  def untrack_lead(lead_id)
+    patch("/leads/#{lead_id}/track", body: {
+      data: {
+        remove_tracking: false
+      }
+    }).parsed_body
+  rescue *NET_HTTP_ERRORS
+    raise Error, "Unable to update lead"
+  end
+
   # def attributes(object)
   #   get("/attributes").parsed_body
   # rescue *NET_HTTP_ERRORS
