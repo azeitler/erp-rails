@@ -32,7 +32,7 @@ class Avo::Resources::BreakcoldLead < Avo::BaseResource
     # field :deleted, as: :boolean, name: 'Exists?' do
     #   !record.deleted
     # end
-    # field :deleted_at, as: :date# , hide_on: [:index]
+    # field :deleted_at, as: :date_time# , hide_on: [:index]
 
     field 'LinkedIn Url', as: :text, hide_on: [:index] do
       record.linkedin_url

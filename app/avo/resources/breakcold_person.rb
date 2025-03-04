@@ -37,7 +37,7 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
     # field :deleted, as: :boolean, name: 'Exists?' do
     #   !record.deleted
     # end
-    # field :deleted_at, as: :date# , hide_on: [:index]
+    # field :deleted_at, as: :date_time# , hide_on: [:index]
 
     field 'Lists', as: :text do
       record.lists.count

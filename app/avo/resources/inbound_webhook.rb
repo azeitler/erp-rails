@@ -21,7 +21,7 @@ class Avo::Resources::InboundWebhook < Avo::BaseResource
 
     field :headers, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: -> { JSON.pretty_generate(value.sort.to_h) }
 
-    field :created_at, as: :date
+    field :created_at, as: :date_time
   end
 
   def filters
