@@ -79,8 +79,17 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   data_attribute :breakcold_lead_id
   data_attribute :breakcold_list_id
 
+  def company_or_fallback
+    return self.recipient_company unless self.recipient_company.blank?
+    unless self.email.blank?
+      domain = self.email.split('@').last
+      return domain unless domain.blank?
+    end
+    "<Firma unbekannt>"
+  end
+
   def notification_message
-    "#{self.recipient_name} (#{self.recipient_occupation} bei #{self.recipient_company})"
+    "#{self.recipient_name} (#{self.recipient_occupation} bei #{self.company_or_fallback})"
   end
 
   def notification_intro
@@ -88,7 +97,7 @@ class LinkedinInviteAcceptedEvent < ApplicationEvent
   end
 
   def event_label
-    "#{self.recipient_name} (#{self.recipient_occupation} bei #{self.recipient_company}) by #{self.sender_name} (#{super})"
+    "#{self.recipient_name} (#{self.recipient_occupation} bei #{self.company_or_fallback}) by #{self.sender_name} (#{super})"
   end
 
 end
