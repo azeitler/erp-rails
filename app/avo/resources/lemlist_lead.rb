@@ -34,6 +34,7 @@ class Avo::Resources::LemlistLead < Avo::BaseResource
     end
     field :company, as: :text
     field :language, as: :text, readonly: true
+    field :updated_at, as: :date_time, readonly: true
 
     field 'LinkedIn Url', as: :text, hide_on: [:index] do
       record.linkedin_url
