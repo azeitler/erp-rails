@@ -54,5 +54,6 @@ class Avo::Resources::BreakcoldLead < Avo::BaseResource
 
   def actions
     action Avo::Actions::ImportBreakcoldLeads
+    action Avo::Actions::ParseAndSave
   end
 end
