@@ -21,6 +21,7 @@ class Avo::Resources::LemlistLead < Avo::BaseResource
       record.avatar_url
     end
     field :title, as: :text, link_to_record: true
+    field :identifier, as: :text, readonly: true, hide_on:[:index]
     field :campaign, as: :belongs_to
     field :email, as: :text
     field 'LinkedIn',

@@ -16,6 +16,7 @@ class Avo::Resources::BreakcoldLead < Avo::BaseResource
       record.avatar_url
     end
     field :title, as: :text, link_to_record: true, readonly: true
+    field :identifier, as: :text, readonly: true, hide_on:[:index]
     field :email, as: :text, readonly: true
     field 'LinkedIn',
       as: :badge,

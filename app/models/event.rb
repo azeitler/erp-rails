@@ -26,6 +26,22 @@ class Event < ApplicationRecord
     HashWithIndifferentAccess.new(super)
   end
 
+  def inbound_webhook
+    return InboundWebhook.find_by_id(self.data[:webhook]) if self.data[:webhook].present?
+  end
+
+  def breakcold_person
+    return Breakcold::Person.find_by_id(self.data[:lead_id]) if self.data[:lead_id].present?
+  end
+
+  def lemlist_lead
+    return Lemlist::Lead.find_by_identifier(self.data[:id]) if self.data[:id].present?
+  end
+
+  def lemlist_campaign
+    return lemlist_lead.campaign if lemlist_lead.present?
+  end
+
   # Make it read-only to prevent accidental modifications
   def readonly?
     true

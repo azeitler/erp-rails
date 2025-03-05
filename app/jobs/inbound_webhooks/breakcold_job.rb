@@ -28,6 +28,7 @@ module InboundWebhooks
         CreateOrUpdateBreakcoldLeadCommand.new(inbound_webhook.params).execute
         lead = Breakcold::Lead.find_by(identifier: id)
         if lead
+          event_data[:lead_name] = lead.title
           event_data[:lead_id] = lead.id
           event_data[:lead_current_status] = lead.status
         else

@@ -24,6 +24,13 @@ class Avo::Resources::Event < Avo::BaseResource
     # field :data, as: :code
     # field :metadata, as: :code
     field :created_at, as: :date_time
+
+
+    field :inbound_webhook, as: :belongs_to, use_resource: Avo::Resources::InboundWebhook
+    field :breakcold_person, as: :belongs_to, use_resource: Avo::Resources::BreakcoldPerson
+    field :lemlist_lead, as: :belongs_to, use_resource: Avo::Resources::LemlistLead
+    field :lemlist_campaign, as: :belongs_to, use_resource: Avo::Resources::LemlistCampaign
+
     field :data, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
       JSON.pretty_generate(value.sort.to_h)
     end
