@@ -73,8 +73,8 @@ class Breakcold::Lead < Breakcold::BaseRecord
   end
 
   def language_tag
-    return "Deutsch" if tags.detect { |tag| tag.downcase.include?("deutsch") }
-    return "Englisch" if tags.detect { |tag| tag.downcase.include?("englis") }
+    return "Deutsch" if tags&.detect { |tag| tag.downcase.include?("deutsch") }
+    return "Englisch" if tags&.detect { |tag| tag.downcase.include?("englis") }
   end
 
   def statuses_descriptions
