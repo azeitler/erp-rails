@@ -87,7 +87,7 @@ class BreakcoldClient < ImportClient
   end
 
   def track_lead(lead_id)
-    patch("/leads/#{lead_id}/track", body: {
+    post("/leads/#{lead_id}/track", body: {
       data: {
         remove_tracking: false
       }
