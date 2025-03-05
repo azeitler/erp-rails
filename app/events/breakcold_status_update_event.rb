@@ -12,7 +12,7 @@ class BreakcoldStatusUpdateEvent < BreakcoldEvent
 
   def lead
     return nil if lead_id.blank? || lead_id == 'not_found'
-    @lead ||= Breakcold::Lead.unscoped.find_by(identifier: lead_id)
+    @lead ||= Breakcold::Lead.unscoped.find_by(identifier: id)
   end
 
   def webhook
