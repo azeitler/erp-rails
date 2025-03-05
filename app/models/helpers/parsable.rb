@@ -139,7 +139,12 @@ module Helpers::Parsable
   end
 
   def parse_and_save
-    parse
+    begin
+      parse
+    rescue StandardError => e
+      Rails.logger.error "failed to parse #{self}: #{e.message} " + e.backtrace.join("\n\t")
+      Bugsnag.notify(e)
+    end
     return save if changed? or !persisted?
     false
   end
