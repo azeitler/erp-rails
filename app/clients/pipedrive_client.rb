@@ -11,33 +11,41 @@ class PipedriveClient < ImportClient
     Pipedrive.authenticate(Rails.application.credentials.dig(:pipedrive, :token))
   end
 
+  def write_file(path, data)
+    File.open(path, 'w') do |file|
+      file.write(data)
+    end
+    puts "Wrote file to #{path}"
+  end
 
-
-  # def self.import_persons
-  #   log "importing persons..."
-  #   updated = 0
-  #   imported = 0
-  #   with_timer do
-  #     persons = pipedrive.pipedrive_persons
-  #     log "importing #{persons.count} persons..."
-  #     count = 0
-  #     persons.each do |person|
-  #       res = pipedrive.import_person(person)
-  #       updated += 1 if res == 1
-  #       imported += 1 if res == 2
-  #       count += 1
-  #       if count % 1000 == 0
-  #         log "imported #{count} persons..."
-  #       end
-  #     end
-  #     log "checking for deleted persons..."
-  #     deleted = Api::Helper.prune_model(persons.map { |obj| obj['id'].to_s }, PipedrivePerson)
-  #     log "imported #{imported} persons, updated #{updated}, deleted #{deleted} persons out of #{persons.count} persons"
-  #     PipedrivePerson.parse_all_and_save
-  #   end
-  #   self.imported_classes << PipedrivePerson
-  #   true
-  # end
+  def import_persons
+    log "importing persons..."
+    updated = 0
+    imported = 0
+    with_timer do
+      _persons = persons
+      log "saving #{_persons.count} persons..."
+      tmp_file = Rails.root.join('tmp', 'pipedrive_persons.json')
+      write_file(tmp_file, JSON.pretty_generate(_persons.map(&:to_h)))
+      log "saving #{_persons.count} persons... #{::ApplicationController.helpers.number_to_human_size(File.size(tmp_file))}"
+      log "importing #{_persons.count} persons..."
+      count = 0
+      _persons.each do |person|
+        res = import_person(person)
+        updated += 1 if res == :updated
+        imported += 1 if res == :imported
+        count += 1
+        if count % 1000 == 0
+          log "imported #{count} persons..."
+        end
+      end
+      log "checking for deleted persons..."
+      deleted = prune_model(_persons.map { |obj| obj['id'].to_s }, PipedriveCrm::Person)
+      log "imported #{imported} persons, updated #{updated}, deleted #{deleted} persons out of #{_persons.count} persons"
+      PipedriveCrm::Person.parse_all_and_save
+    end
+    true
+  end
 
   def import_person(person)
     unless person.is_a?(Pipedrive::Person) || person.is_a?(Hash)
@@ -52,6 +60,18 @@ class PipedriveClient < ImportClient
     result
   end
 
+  def persons
+    @persons ||= begin
+                   persons = with_timer do
+                     persons = Pipedrive::Person.all(nil, { :query => {} }, true) do |additional_data|
+                       log "getting persons: #{additional_data['pagination']['next_start']}"
+                     end
+                     log "got #{persons.count} persons"
+                     persons
+                   end
+                   persons
+                 end
+  end
 
   def fields
     @fields ||= begin

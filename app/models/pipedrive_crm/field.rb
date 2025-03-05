@@ -97,17 +97,25 @@ class PipedriveCrm::Field < ApplicationRecord
     options.detect{|opt| opt['label'] == label }&.dig('id')
   end
 
+  def get_value_for_id(id)
+    options.detect{|opt| opt['id']&.to_s == id&.to_s }&.dig('label')
+  end
+
   def last_updated_by_user_id
     properties['last_updated_by_user_id']
   end
 
   def system?
+    return true if field_name&.length != 40
+    return true if ['label','lost_reason','category','birthday','email','note'].include?(field_name)
     k = 'last_updated_by_user_id'
-    return false if field_name&.length == 40
-    return true if ['label','lost_reason','category'].include?(field_name)
     # return false if properties.key?(k)
     properties[k].blank?
     # edit_flag
+  end
+
+  def user_generated?
+    !system?
   end
 
   def system_level?

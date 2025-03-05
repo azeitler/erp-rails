@@ -10,11 +10,16 @@ class Avo::Resources::PipedriveCrmPerson < Avo::BaseResource
   self.title = :title
 
   def fields
-    field :id, as: :id, readonly:true, hide_on:[:index], link_to_record: true
-    field :title, as: :text, readonly:true
+    field :id, as: :id, readonly:true, hide_on:[:index]
+    field :title, as: :text, readonly:true, link_to_record: true
     field :email, as: :text, readonly:true
+    field :emails, as: :tags, readonly:true
+    field :labels, as: :tags, readonly:true
+    # field :label_ids, as: :tags, readonly:true
+    field :label_names, as: :tags, readonly:true
     field :identifier, as: :text, hide_on:[:index]
-    field :custom_fields, as: :key_value, disabled:false
+    field :custom_field_values, as: :key_value, disabled:false
+    field :updated_at, as: :date_time, readonly:true
     # field :issues, as: :array
 
 
