@@ -24,6 +24,14 @@ class InboundWebhook < ApplicationRecord
     @params ||= JSON.parse(body || '{}')
   end
 
+  def pipedrive_person
+    if controller_name == 'InboundWebhooks::PipedriveController'
+      if params['meta'] && params['meta']['entity'] == 'person'
+        return PipedriveCrm::Person.find_by_identifier(params['meta']['entity_id'])
+      end
+    end
+  end
+
   def label
     if params
       str = []
