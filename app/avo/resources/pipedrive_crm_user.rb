@@ -12,12 +12,16 @@ class Avo::Resources::PipedriveCrmUser < Avo::BaseResource
     field :issues, as: :textarea
     field :title, as: :text
     field :email, as: :text
-    field :properties, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
-      JSON.pretty_generate(value.sort.to_h)
+
+    panel 'Import' do
+      field "Properties", as: :code, theme: 'dracula', language: 'json', hide_on:[:new,:edit], format_using: ->  do
+        JSON.pretty_generate(record.properties.sort.to_h)
+      end
     end
   end
 
   def actions
     action Avo::Actions::ImportPipedriveUsers
+    action Avo::Actions::ParseAndSave
   end
 end

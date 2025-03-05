@@ -31,12 +31,14 @@ class Avo::Resources::PipedriveCrmField < Avo::BaseResource
     field :field_options, as: :text, hide_on:[:index]
     field :user, as: :belongs_to
 
-    field :properties, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
+    field :values, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
       JSON.pretty_generate(value.sort.to_h)
     end
 
-    field :values, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
-      JSON.pretty_generate(value.sort.to_h)
+    panel 'Import' do
+      field "Properties", as: :code, theme: 'dracula', language: 'json', hide_on:[:new,:edit], format_using: ->  do
+        JSON.pretty_generate(record.properties.sort.to_h)
+      end
     end
   end
 
@@ -48,5 +50,6 @@ class Avo::Resources::PipedriveCrmField < Avo::BaseResource
 
   def actions
     action Avo::Actions::ImportPipedriveFields
+    action Avo::Actions::ParseAndSave
   end
 end

@@ -17,8 +17,15 @@ class Avo::Resources::PipedriveCrmDeal < Avo::BaseResource
     field :value, as: :number
     field :close_date, as: :date_time
     field :year, as: :number
-    field :properties, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do
-      JSON.pretty_generate(value.sort.to_h)
+
+    panel 'Import' do
+      field "Properties", as: :code, theme: 'dracula', language: 'json', hide_on:[:new,:edit], format_using: ->  do
+        JSON.pretty_generate(record.properties.sort.to_h)
+      end
     end
+  end
+
+  def actions
+    action Avo::Actions::ParseAndSave
   end
 end

@@ -24,7 +24,27 @@ class PipedriveCrm::Person < ApplicationRecord
     emails&.count || 0
   end
 
+  def self.custom_fields
+    @@custom_fields ||= PipedriveCrm::Field.where(field_target: 'person')
+  end
+
+  def parse_custom_fields
+    hash = {}
+    self.class.custom_fields.each do |field|
+      value = self.properties[field.field_name]
+      if value.present?
+        hash[field.title] = value
+      end
+    end
+    hash
+  end
+
+  def custom_fields
+    self.properties['custom_fields']
+  end
+
   def parse
     self.email = emails&.first
+    self.properties['custom_fields'] = self.parse_custom_fields
   end
 end
