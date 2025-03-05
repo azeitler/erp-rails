@@ -7,6 +7,7 @@
 #  deleted_at   :datetime
 #  email        :string
 #  identifier   :string
+#  language     :string
 #  linkedin_url :string
 #  properties   :jsonb
 #  status       :jsonb

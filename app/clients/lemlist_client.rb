@@ -80,6 +80,7 @@ class LemlistClient < ImportClient
     }
     data['companyName'] = lead.company.strip if lead.company.present?
     data['jobTitle'] = lead.company_position.strip if lead.company_position.present?
+    data['language'] = lead.language.strip if lead.language.present?
 
     puts "adding lead to campaign #{campaign_id}: #{data}"
     lead_response = post("/campaigns/#{campaign_id}/leads", query: { 'findEmail': true, 'linkedinEnrichment': true  }, body: data.to_json, headers: { "Content-Type" => "application/json" }).parsed_body

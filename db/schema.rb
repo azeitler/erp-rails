@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_03_074521) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_05_143656) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -153,6 +153,13 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_03_074521) do
     t.datetime "deleted_at"
     t.jsonb "status", default: {}
     t.string "linkedin_url"
+    t.string "language"
+  end
+
+  create_table "breakcold_leads_lemlist_leads", id: false, force: :cascade do |t|
+    t.bigint "breakcold_lead_id", null: false
+    t.bigint "lemlist_lead_id", null: false
+    t.index ["breakcold_lead_id", "lemlist_lead_id"], name: "idx_on_breakcold_lead_id_lemlist_lead_id_8d21ea42cf"
   end
 
   create_table "breakcold_leads_lists", id: false, force: :cascade do |t|
@@ -359,6 +366,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_03_074521) do
     t.datetime "updated_at", null: false
     t.bigint "lemlist_campaign_id"
     t.string "linkedin_url"
+    t.string "language"
     t.index ["lemlist_campaign_id"], name: "index_lemlist_leads_on_lemlist_campaign_id"
   end
 

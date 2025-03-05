@@ -28,6 +28,7 @@ class Avo::Resources::BreakcoldLead < Avo::BaseResource
     end
     field :company, as: :text, readonly: true
     field :tags, as: :tags, readonly: true
+    field :language, as: :text, readonly: true
 
     # field :deleted, as: :boolean, name: 'Exists?' do
     #   !record.deleted
@@ -42,6 +43,7 @@ class Avo::Resources::BreakcoldLead < Avo::BaseResource
     end
 
     field :lists, as: :has_and_belongs_to_many, use_resource: Avo::Resources::BreakcoldList, reloadable: true
+    field :lemlist_leads, as: :has_and_belongs_to_many, use_resource: Avo::Resources::LemlistLead, reloadable: true
 
     panel 'Import' do
       field :properties, as: :code, theme: 'dracula', language: 'json', readonly: true, format_using: ->  do

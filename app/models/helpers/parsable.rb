@@ -6,6 +6,10 @@ module Helpers::Parsable
 
   module ClassMethods
 
+    def ransackable_attributes(auth_object = nil)
+      %w(title properties)
+    end
+
     def parse_all
       klass = self
       if klass.name.blank?

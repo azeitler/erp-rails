@@ -46,6 +46,10 @@ class ApplicationPolicy
     account_user.admin?
   end
 
+  def search?
+    true
+  end
+
   class Scope
     def initialize(account_user, scope)
       # Comment out to allow guest users

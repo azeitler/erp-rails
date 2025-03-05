@@ -7,6 +7,7 @@
 #  deleted_at   :datetime
 #  email        :string
 #  identifier   :string
+#  language     :string
 #  linkedin_url :string
 #  properties   :jsonb
 #  status       :jsonb
@@ -24,6 +25,8 @@ class Breakcold::Lead < Breakcold::BaseRecord
   has_and_belongs_to_many :statuses, inverse_of: :leads, :class_name => 'Breakcold::Status', :join_table => 'breakcold_leads_statuses', foreign_key: 'breakcold_lead_id', association_foreign_key: 'breakcold_status_id'
 
   has_many :activities, class_name: 'Breakcold::LeadActivity', foreign_key: 'breakcold_lead_id', dependent: :destroy, inverse_of: :lead
+
+  has_and_belongs_to_many :lemlist_leads, :class_name => 'Lemlist::Lead', join_table: 'breakcold_leads_lemlist_leads', foreign_key: 'breakcold_lead_id', association_foreign_key: 'lemlist_lead_id', inverse_of: :breakcold_leads
 
   def to_s
     "[#{self.class.name} #{title} (#{identifier})]"
@@ -67,6 +70,11 @@ class Breakcold::Lead < Breakcold::BaseRecord
     properties['status']&.map do |status|
       [ status['id_list'], status['name'] ]
     end.to_h
+  end
+
+  def language_tag
+    return "Deutsch" if tags.detect { |tag| tag.downcase.include?("deutsch") }
+    return "Englisch" if tags.detect { |tag| tag.downcase.include?("englis") }
   end
 
   def statuses_descriptions
@@ -145,6 +153,7 @@ class Breakcold::Lead < Breakcold::BaseRecord
 
     self.lists = Breakcold::List.where(identifier: list_ids)
     self.statuses = Breakcold::Status.where(identifier: status_ids)
+    self.language = self.language_tag
 
     parse_created_at
     parse_updated_at

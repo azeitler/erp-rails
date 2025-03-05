@@ -3,6 +3,10 @@ class ApplicationRecord < ActiveRecord::Base
 
   include ActionView::RecordIdentifier
 
+  def self.ransackable_attributes(auth_object = nil)
+    []
+  end
+
   # Orders results by column and direction
   def self.sort_by_params(column, direction)
     sortable_column = column.presence_in(sortable_columns) || "created_at"

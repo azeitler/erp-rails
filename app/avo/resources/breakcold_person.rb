@@ -32,6 +32,7 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
       "<a href='#{record.linkedin_url}' target='_blank'>#{record.linkedin_url}</a>".html_safe
     end
     field :company, as: :text
+    field :language, as: :text
     field :tags, as: :tags
 
     # field :deleted, as: :boolean, name: 'Exists?' do
@@ -48,6 +49,7 @@ class Avo::Resources::BreakcoldPerson < Avo::BaseResource
     end
 
     field :activities, as: :has_many, resource: Avo::Resources::BreakcoldLeadActivity, link_to_resource: false
+    field :lemlist_leads, as: :has_and_belongs_to_many, use_resource: Avo::Resources::LemlistLead, reloadable: true
 
     field :lists, as: :has_and_belongs_to_many, use_resource: Avo::Resources::BreakcoldList, reloadable: true
 
