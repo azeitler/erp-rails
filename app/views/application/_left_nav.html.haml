@@ -1,7 +1,7 @@
 .flex.flex-row
   = active_link_to "Home", "/", class: "block no-underline p-3 px-6"
-  = active_link_to "Manage", "/manage", class: "block no-underline p-3 px-6"
 
   - if current_user&.admin?
+    = active_link_to "Manage", "/manage", class: "block no-underline p-3 px-6"
     = active_link_to "Events", "/admin/events", class: "block no-underline p-3 px-6"
     = active_link_to "Jobs", "/admin/jobs", class: "block no-underline p-3 px-6"
