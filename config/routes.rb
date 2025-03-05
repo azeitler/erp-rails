@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   post 'trigger_job', to: 'jobs#trigger'
 
   namespace :inbound_webhooks do
+    resources :pandadoc, controller: :pandadoc, only: [:create]
     resources :attio, controller: :attio, only: [:create]
     resources :easybill, controller: :easybill, only: [:create]
     resources :pipedrive, controller: :pipedrive, only: [:create]
